@@ -1,0 +1,45 @@
+body {
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+ul {
+  white-space: pre-wrap;
+}
+
+.person {
+  margin-left: 20px;
+  border-left: solid 5px black;
+  padding-left: 20px;
+}
+
+.person__heading,
+.person__data,
+.person__text {
+  width: 100vw;
+  white-space: normal;
+  white-space: normal;
+}
+
+.person--female {
+  border-left-color: pink;
+}
+
+.person--male {
+   border-left-color: blue;
+}
+
+a {
+  font-weight: bold;
+}
+
+.person__partner--none
+.person__children--none {
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 0.8em;
+}
