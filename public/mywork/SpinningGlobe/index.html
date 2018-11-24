@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Spinning html5 canvas globe</title>
+		<style type='text/css'>
+			noscript {
+				background: #333;
+				display: block;
+				padding: 1em;
+				color: white;
+				font-weight: bold;
+			}
+			body {
+				width: 800px;
+				margin: auto;
+				border-left: solid 1px #344;
+				padding-left: 10px;
+			}
+			.twitter-share-button {
+			position: absolute;
+			right: 8px;
+			top: 8px;
+			}
+			.story {
+				margin-bottom: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Spinning html5 canvas globe</h1>
+<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical">Tweet</a><script type="text/javascript" 
+src="http://platform.twitter.com/widgets.js"></script>
+
+		<h2>Cool things happen when you have shape data and HTML5</h2>
+		<div class='story'>
+			This demo was made by <a href="http://jonrobson.me.uk">Jon Robson</a>.
+			During a project where <a href="http://osmosoft.com">Osmosoft</a> made a new website for <a href="http://ilga.org">the international gay lesbian association (ILGA)</a>,
+			which we felt demanded a chloropleth map to show laws relating to LGBTI issues we did many geo related experiments.
+			Here is one which involved looking at spinning globes. It was abandoned due to being unperformant in modern browsers (hence since we needed this map to work in Internet Explorer this was abandoned)
+			Instead we made a flat map with the canvas element, and some alternative vml code for Internet Explorer users.
+			However reflecting on this work the idea of a spinning map was pretty damn cool. 
+			So I've dressed up those hacky experiments to show a pretty canvas animation.
+			I've forgotten about IE for the purpose of this demo.
+<!--   and have made use of cool canvas features such as 
+createPattern to give land a textured effect and shadows to create an atmosphere effect. -->
+			The map itself is constructed from a <a href="data.js">geojson describing the shapes that make up the world</a>. The coordinates are projected on to a sphere.
+			Please do view source, share and hack with as you please.
+		</div>
+		<noscript>Please enable JS</noscript>
+		<canvas id='map'></canvas>
+		<script type='text/javascript' src='renderer2.js' ></script>
+		<script type='text/javascript' src='data.js' ></script>
+		<script type='text/javascript'>
+		function init(){
+			var el = document.getElementById( 'map' );
+			var ctx;
+			var imgs = [ { src:'earth.png', property: 'fill2' } ];
+			var loaded = 0;
+
+			if(!el.getContext) {
+				alert( 'HTML5 is needed for the purposes of the demo! Please view this demo in a recent version of an updated browser (basically take your pick apart from pretty much any popular browser without the words Internet and Explorer in the name)' );
+			} else {
+				ctx = el.getContext("2d");
+			}
+			globalOptions.fill = "#0C7137"
+			for(var i = 0; i < imgs.length; i++) {
+				var data = imgs[i];
+				var img = document.createElement("img");
+				img.onload = function() {
+					globalOptions[data.property] = ctx.createPattern(img, 'repeat');
+					globalOptions[data.property + "-image"] = img;
+					loaded +=1;
+					if(loaded == imgs.length) { // we are ready to begin
+						var map = new canvasMap(geojson);
+
+						if(globalOptions.projection == projections.globe) {
+							globalOptions.angle.x = 360;
+							var animation = setInterval(function() {
+								globalOptions.angle.x += 1;
+								map.render();
+								}, 50);
+						}
+					}
+				};
+				img.src = data.src;
+			}
+		}
+		init();
+		
+	</script>
+	</body>
+</html>

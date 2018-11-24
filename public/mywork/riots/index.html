@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html xmlns:og="http://opengraphprotocol.org/schema/">
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="image_src" href="http://jonrobson.me.uk/riots/riotmap.png" /> 
+  <meta property="og:image" content="http://jonrobson.me.uk/riots/riotmap.png" />
+  <title>Riots in London - correlation with deprived areas</title>
+  <style type="text/css">
+    #map {
+      width: 800px;
+      height: 400px;
+    }
+    body {
+      margin: auto;
+      width: 800px;
+      font-family: Georgia;
+      color: #212121;
+    }
+    h1 {
+      color: black;
+    }
+    #footer {
+      color: #888;
+      font-size: 0.8em;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .emphasis {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+<h1>Riot map</h1>
+
+<p>
+  I <a href="http://twitter.com/rakugojon">(@rakugojon)</a> was curious to see what the correlation was between the riots yesterday and deprived areas. Luckily two <a href="http://youngrewiredstate.org">Young Rewired Staters</a> (<a href="http://pexat.com/">Priyesh Patel</a> and <a href="http://dansaul.co.uk/">Daniel Saul</a>) who spent time in our office last week had <a href="http://themoodmap.co.uk/">done the hard work with their excellent mood map</a> and imported <a href="http://www.communities.gov.uk/communities/research/indicesdeprivation/deprivation10/">government deprivation data</a> into <a href="http://www.google.com/fusiontables/DataSource?dsrcid=1246211">google fusion tables</a>. All I had to do was filter this data to just show the areas seen as more deprived (<span class='emphasis'>the top 10% of deprived areas</span> in the UK according to the indice) and overlay it with where riots are occurring. To see the deprived areas, simply zoom in on a marker (signifying a riot). Dark areas nearby represent deprived areas that you can click on. The <span class='emphasis'>darker</span> the area the <span class='emphasis'>more deprived</span>.
+</p>
+<p>
+Originally for the riot data I used <a href="http://t.co/8eSHARc">live London riots map</a> compiled by <a href="http://james.cridland.net/">James Cridland</a>. During Tuesday the <a href="http://www.guardian.co.uk/news/datablog/2011/aug/09/uk-riots-incident-listed-mapped#data">Guardian released some live data</a> and <a href="http://twitter.com/jamescridland">@jamescridland</a> announced he wasn't going to keep his map up to date. Thus the data for riots is now coming from the <a href="https://spreadsheets.google.com/spreadsheet/ccc?key=0AonYZs4MzlZbdDFMMmRSSWFvTnU3Q2EyaWFNMzlFX2c&hl=en_US#gid=0">Guardian</a> which I've imported into <a href="http://www.google.com/fusiontables/DataSource?dsrcid=1271090">Google Fusion Tables</a>. You can see the old map using James Cridland's data <a href="crowdsourced.html">here</a>.
+</p>
+
+<div id="map"></div>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+  var options = { zoom:6, center: new google.maps.LatLng(54.085173,-1.933594),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map = new google.maps.Map(document.getElementById("map"), options);
+
+  new google.maps.FusionTablesLayer({query: { select:"geometry", 
+    from:"1246211", where: "col18 <= 3248"}, map:map});
+
+    // riot locations
+  new google.maps.FusionTablesLayer({query: { select:"col4", 
+     from: "1276327"}, map:map});
+</script>
+
+<p>
+  <h2>Future enhancements</h2>
+  It would be interesting in future, to overlay other government data sets on this map such as...
+  <ul>
+    <li>home locations of arrested people in connection to the riots to see if they live in an area of deprivation</li>
+    <li>areas that they have cut funding for social work/education (suggestion via <a href="http://twitter.com/mattlucht">mattlucht</a>)</li>
+    <li>ofsted results</li>
+    <li>political allegiance</li>
+    <li>unemployment figures</li>
+  </ul>
+  It would also be useful to allow filtering of the data to show sizes and dates of disturbance.
+  
+  <p>The web is about sharing and improving on others work, so please feel free if interested to reuse this data.
+  If you do a <a href="http://en.wikipedia.org/wiki/Mashup_(web_application_hybrid)">mashup</a> based on this, I'd love to hear from you via <a href="http://twitter.com/rakugojon">twitter</a>.</p>
+</p>
+<div id="footer"> made lovingly by <a href="http://jonrobson.me.uk">jon robson</a>.
+</div>
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript"> 
+ 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7040645-4']);
+  _gaq.push(['_trackPageview']);
+        
+  (function() { 
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();         
+                
+</script>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=rakugo"></script>
+<!-- AddThis Button END -->
+<!---
+!About the data
+
+The map shows the most deprived areas of the UK. There are 32482 total records in the deprivation data
+10% deprived areas in the UK = those with a rank 
+32482 * 0.1 = 3248.2
+so top 10% deprived areas in UK have a rank less than or equal to 3248
+The area that is ranked 3248 has a score of 44.884900
+-->
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:og="http://opengraphprotocol.org/schema/">
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="image_src" href="http://jonrobson.me.uk/riots/riotmap.png" /> 
+  <meta property="og:image" content="http://jonrobson.me.uk/riots/riotmap.png" />
+  <title>Riots in London - correlation with deprived areas</title>
+  <style type="text/css">
+    #map {
+      width: 800px;
+      height: 400px;
+    }
+    body {
+      margin: auto;
+      width: 800px;
+      font-family: Georgia;
+      color: #212121;
+    }
+    h1 {
+      color: black;
+    }
+    #footer {
+      color: #888;
+      font-size: 0.8em;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+<h1>Riot map</h1>
+
+<p>
+  I <a href="http://twitter.com/rakugojon">(@rakugojon)</a> was curious to see what the correlation was between the riots yesterday and deprived areas. Luckily two <a href="http://youngrewiredstate.org">Young Rewired Staters</a> (<a href="http://pexat.com/">Priyesh Patel</a> and <a href="http://dansaul.co.uk/">Daniel Saul</a>) who spent time in our office last week had <a href="http://themoodmap.co.uk/">done the hard work with their excellent mood map</a> and imported <a href="http://www.communities.gov.uk/communities/research/indicesdeprivation/deprivation10/">government deprivation data</a> into <a href="http://www.google.com/fusiontables/DataSource?dsrcid=1246211">google fusion tables</a>. All I had to do was filter this data to just show the areas seen as more deprived (I took areas with a score of over 50) and overlay it with the <a href="http://t.co/8eSHARc">live London riots map</a> compiled by <a href="http://james.cridland.net/">James Cridland</a>. To see the deprived areas, simply zoom in on a marker (signifying a riot). Dark areas nearby represent deprived areas that you can click on. Hope you find this interesting. Please help keep this map up to date by tweeting <a href="http://twitter.com/jamescridland">@jamescridland</a> with verifiable source.
+</p>
+
+<div id="map"></div>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+  var data1Url = "http://www.google.com/fusiontables/exporttable?query=select+*+from+1246211+where+col17+%3E+'50'&o=kmllink&g=col0";
+  var data2Url = "http://maps.google.co.uk/maps/ms?ie=UTF8&source=embed&authuser=0&msa=0&output=kml&msid=207192798388318292131.0004aa01af6748773e8f7";
+  var options = { zoom:6, center: new google.maps.LatLng(54.085173,-1.933594),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map = new google.maps.Map(document.getElementById("map"), options);
+
+  new google.maps.FusionTablesLayer({query: { select:"geometry", 
+    from:"1246211", where: "col17 > 50"}, map:map});
+
+  var riotLayer = new google.maps.KmlLayer(data2Url);
+  riotLayer.setMap(map);
+</script>
+<div id="footer"> made lovingly by <a href="http://jonrobson.me.uk">jon robson</a>.
+</div>
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=rakugo"></script>
+<!-- AddThis Button END -->
+</body>
+</html>

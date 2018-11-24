@@ -236,6 +236,9 @@ h2 {
     margin-bottom: 10px;
     width: 200px;
 }
+section:last-child {
+    font-size: 0.8em;
+}
 @supports (position:fixed) {
     nav {
         position: fixed;
