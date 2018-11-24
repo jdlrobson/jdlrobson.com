@@ -91,7 +91,7 @@ section {
 }
 
 .header-box {
-    padding: 40px;
+    padding: 20px;
 }
 
 section a,
@@ -127,13 +127,11 @@ header h1 {
 .icons {
     margin: 0;
     padding: 0;
-    width: 360px; /* 64px * 5; */
 }
 .icons li {
     width: 64px;
     height: 64px;
     overflow: hidden;
-    margin: 0 16px 0 0;
     display: inline-block;
 }
 .icons--secondary li {
@@ -160,11 +158,15 @@ header h1 {
     padding: 0 50px;
 }
 
-.slideshow__item a {
+.slideshow__item > a {
     display: block;
     font-size: 36px;
     margin-bottom: 20px;
     text-transform: uppercase;
+}
+
+.slideshow__item > span > a {
+    font-weight: bold;
 }
 
 .slideshow__item span {
@@ -187,7 +189,7 @@ header h1 {
 
 .slideshow__button--right {
     left: auto;
-    right: -10px;
+    right: 10px;
     -ms-transform: rotate(180deg); /* IE9 */
     transform: rotate(180deg);
 }
@@ -207,11 +209,11 @@ header h1 {
 
 /* websites */
 #websites {
-    padding-top: 190px;
     background-image: url(img-home/someday.jpg);
     background-repeat:no-repeat;
     background-position: top left;
     background-size: 100% auto;
+    padding: 180px 60px;
 }
 
 h2 {
@@ -241,6 +243,9 @@ h2 {
 }
 
 @media ( min-width: 720px ) {
+    .icons li {
+        margin: 0 16px 0 0;
+    }
     .header-box {
         padding: 60px 80px 100px 100px;
         width: 416px;
@@ -313,6 +318,5 @@ h2 {
         padding: 60px 200px 100px 300px;
     }
     #websites {
-        background-position: 0 0;
     }
 }
