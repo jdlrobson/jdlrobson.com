@@ -1,5 +1,6 @@
 # Redirect with a 301
 dev/CarbonTool/index.html         /mywork/CarbonTool         301
 dev/SpinningGlobe/                /mywork/SpinningGlobe      301
+dev/window.print/index.html       /mywork/window.print.html 301
 dev/cv.pdf                        /cv.pdf
 dev/index.html                    /mywork/index.html

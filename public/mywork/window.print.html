@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>window.print is a lie!</title>
+	<script>
+		var attempt = 0;
+		var msgs = {
+			0: "If print didn't work why not click it again?",
+			1: "If print didn't work, page probably didn't load. Try clicking again.",
+			2: "That's weird. window.print has been in browsers since the dawn of time. It should still work. Try again.",
+			3: "Have you tried turning it off and on again?",
+			4: "Must be an issue with your specific machine. Try again.",
+			5: "Does your browser even have a print function?"
+		};
+		function clicked() {
+			var msg = msgs[attempt];
+			try {
+				window.print();
+			} catch ( e ) {
+				msg = "Oh wow... we got an error. That's something I guess!" + e;
+			}
+			if ( !msg ) {
+				attempt = 0;
+				msg = msgs[0];
+			}
+			document.getElementById('mockingArea').innerHTML = "<h2>Troubleshooting help</h2><p>" + msg + "</p>";
+			attempt++;
+		}
+	</script>
+</head>
+<body>
+	<h1>window.print is a broken contract</h1>
+	<p>This page is designed to help showcase the broken-ness of printing across mobile devices. Boot up a mobile browser e.g. Opera, Opera Mini, Chrome, Dolphin, UC Browser and see whether you can print the page. Marvel at the results!</p>
+	<p>Hey there! Why don't you print me?</p>
+	<button onclick="javascript:clicked();">print this page!</button>
+	<div id="mockingArea"></div>
+</body>
+</html>
