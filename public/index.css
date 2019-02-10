@@ -178,7 +178,7 @@ header h1 {
     display: none;
     background: url(img-home/arrow.svg);
     width: 25px;
-    left: -10px;
+    left: 10px;
     height: 50px;
     top: 50%;
     margin-top: -25px;
