@@ -239,6 +239,23 @@ h2 {
 section:last-child {
     font-size: 0.8em;
 }
+
+/* js only */
+.slideshow__counter {
+    padding: 0;
+}
+.slideshow__counter__coin {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 5px;
+    margin: 0 2px;
+}
+.slideshow__counter__coin--active {
+    background: #eee;
+}
+
 @supports (position:fixed) {
     nav {
         position: fixed;
