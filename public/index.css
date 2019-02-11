@@ -158,6 +158,12 @@ header h1 {
     padding: 0 50px;
 }
 
+.slideshow__item {
+    justify-content: center;
+    flex-direction: column;
+    min-height: 400px;
+}
+
 .slideshow__item > a {
     display: block;
     font-size: 36px;
@@ -202,9 +208,11 @@ header h1 {
     min-height: 500px;
 }
 
-.client-js .slideshow__button,
-.client-js .slideshow__item--active {
+.client-js .slideshow__button {
     display: block;
+}
+.client-js .slideshow__item--active {
+    display: flex;
 }
 
 /* websites */
@@ -248,12 +256,14 @@ section:last-child {
     display: inline-block;
     width: 8px;
     height: 8px;
+    border: solid 1px #333;
     background: white;
+    opacity: 0.6;
     border-radius: 5px;
     margin: 0 2px;
 }
 .slideshow__counter__coin--active {
-    background: #eee;
+    opacity: 1;
 }
 
 @supports (position:fixed) {
