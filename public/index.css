@@ -144,6 +144,9 @@ header h1 {
 
 #writes {
     background: #ff004b;
+}
+#writes,
+#writes-fiction {
     text-align: center;
 }
 
@@ -250,7 +253,8 @@ section:last-child {
 
 /* js only */
 .slideshow__counter {
-    padding: 0;
+    padding: 10px 0;
+    margin: 0;
 }
 .slideshow__counter__coin {
     display: inline-block;

@@ -3,6 +3,7 @@ var ACTIVE_COIN_CLASS = COIN_CLASS + ' slideshow__counter__coin--active'
 
 function initSlideshow(slideshow) {
     var coin, activeCoin = 0, coins;
+    var items = slideshow.querySelectorAll( '.slideshow__items' );
     var num = slideshow.querySelectorAll('.slideshow__item').length;
     var indicators = document.createElement( 'ul' );
     indicators.className = 'slideshow__counter';
@@ -13,7 +14,7 @@ function initSlideshow(slideshow) {
     }
     coins = indicators.childNodes;
     coins[activeCoin].className = ACTIVE_COIN_CLASS;
-    slideshow.insertBefore( indicators, slideshow.firstChild );
+    slideshow.insertBefore( indicators, items.nextSibling );
     Array.from(slideshow.querySelectorAll('.slideshow__button')).forEach(function(item) {
         item.addEventListener('click', function (ev) {
             var activeClass = 'slideshow__item slideshow__item--active';
