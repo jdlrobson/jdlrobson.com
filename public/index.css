@@ -94,6 +94,7 @@ section {
     padding: 20px;
 }
 
+footer a,
 section a,
 header a {
     color: white;
@@ -247,8 +248,10 @@ h2 {
     margin-bottom: 10px;
     width: 200px;
 }
-section:last-child {
+footer {
     font-size: 0.8em;
+    padding: 8px;
+    color: white;
 }
 
 /* js only */
