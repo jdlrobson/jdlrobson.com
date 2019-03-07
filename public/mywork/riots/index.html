@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="image_src" href="http://jonrobson.me.uk/riots/riotmap.png" /> 
-  <meta property="og:image" content="http://jonrobson.me.uk/riots/riotmap.png" />
+  <meta property="og:image" content="https://jonrobson.me.uk/mywork/riots/riotmap.png" />
   <title>Riots in London - correlation with deprived areas</title>
   <style type="text/css">
     #map {
@@ -39,12 +38,12 @@
   I <a href="http://twitter.com/rakugojon">(@rakugojon)</a> was curious to see what the correlation was between the riots yesterday and deprived areas. Luckily two <a href="http://youngrewiredstate.org">Young Rewired Staters</a> (<a href="http://pexat.com/">Priyesh Patel</a> and <a href="http://dansaul.co.uk/">Daniel Saul</a>) who spent time in our office last week had <a href="http://themoodmap.co.uk/">done the hard work with their excellent mood map</a> and imported <a href="http://www.communities.gov.uk/communities/research/indicesdeprivation/deprivation10/">government deprivation data</a> into <a href="http://www.google.com/fusiontables/DataSource?dsrcid=1246211">google fusion tables</a>. All I had to do was filter this data to just show the areas seen as more deprived (<span class='emphasis'>the top 10% of deprived areas</span> in the UK according to the indice) and overlay it with where riots are occurring. To see the deprived areas, simply zoom in on a marker (signifying a riot). Dark areas nearby represent deprived areas that you can click on. The <span class='emphasis'>darker</span> the area the <span class='emphasis'>more deprived</span>.
 </p>
 <p>
-Originally for the riot data I used <a href="http://t.co/8eSHARc">live London riots map</a> compiled by <a href="http://james.cridland.net/">James Cridland</a>. During Tuesday the <a href="http://www.guardian.co.uk/news/datablog/2011/aug/09/uk-riots-incident-listed-mapped#data">Guardian released some live data</a> and <a href="http://twitter.com/jamescridland">@jamescridland</a> announced he wasn't going to keep his map up to date. Thus the data for riots is now coming from the <a href="https://spreadsheets.google.com/spreadsheet/ccc?key=0AonYZs4MzlZbdDFMMmRSSWFvTnU3Q2EyaWFNMzlFX2c&hl=en_US#gid=0">Guardian</a> which I've imported into <a href="http://www.google.com/fusiontables/DataSource?dsrcid=1271090">Google Fusion Tables</a>. You can see the old map using James Cridland's data <a href="crowdsourced.html">here</a>.
+Originally for the riot data I used <a href="https://t.co/8eSHARc">live London riots map</a> compiled by <a href="http://james.cridland.net/">James Cridland</a>. During Tuesday the <a href="http://www.guardian.co.uk/news/datablog/2011/aug/09/uk-riots-incident-listed-mapped#data">Guardian released some live data</a> and <a href="http://twitter.com/jamescridland">@jamescridland</a> announced he wasn't going to keep his map up to date. Thus the data for riots is now coming from the <a href="https://spreadsheets.google.com/spreadsheet/ccc?key=0AonYZs4MzlZbdDFMMmRSSWFvTnU3Q2EyaWFNMzlFX2c&hl=en_US#gid=0">Guardian</a> which I've imported into <a href="http://www.google.com/fusiontables/DataSource?dsrcid=1271090">Google Fusion Tables</a>. You can see the old map using James Cridland's data <a href="crowdsourced.html">here</a>.
 </p>
 
 <div id="map"></div>
 
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
   var options = { zoom:6, center: new google.maps.LatLng(54.085173,-1.933594),
     mapTypeId: google.maps.MapTypeId.ROADMAP
