@@ -1,4 +1,4 @@
-@import url(img-home/'https://fonts.googleapis.com/css?family=Barlow');
+@import url('https://fonts.googleapis.com/css?family=Barlow');
 
 body {
     font-family: barlow-medium,barlow,sans-serif;
@@ -302,7 +302,7 @@ footer {
         display: block;
     }
     body {
-        background:  #9eb08f url(img-home/bgrepeat.webp) left top no-repeat;
+        background:  #9eb08f url(img-home/bgrepeat.webp) left top repeat-y;
     }
 
     .client-js .slideshow {
