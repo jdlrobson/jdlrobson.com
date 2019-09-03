@@ -1,0 +1,13 @@
+{
+  "name": "jdlrobson.com",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdlrobson/jdlrobson.com.git"
+  },
+  "dependencies": {
+    "node-fetch": "2.6.0",
+    "xml2js-es6-promise": "1.1.1"
+  }
+}
