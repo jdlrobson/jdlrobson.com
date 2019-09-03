@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const xml2js = require('xml2js-es6-promise');
 
-function handler(_event, _context, callback) {
+exports.handler = function (_event, _context, callback) {
     fetch( 'https://medium.com/feed/@dlyall' ).then((response) => response.text())
         .then((xml)=> {
             return xml2js(xml);
@@ -13,5 +13,3 @@ function handler(_event, _context, callback) {
               })
         });
 }
-
-module.exports = handler;
