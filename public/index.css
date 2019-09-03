@@ -151,6 +151,11 @@ header h1 {
     text-align: center;
 }
 
+footer,
+#writes-fiction {
+    background: #9eb08f;
+}
+
 .slideshow {
     position: relative;
 }
