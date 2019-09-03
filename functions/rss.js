@@ -7,7 +7,7 @@ exports.handler = function (_event, _context, callback) {
             return xml2js(xml);
         })
         .then((data) => {
-            callback({
+            callback(null, {
                 statusCode: 200,
                 body: JSON.stringify(data.rss.channel[0].item)
               })
