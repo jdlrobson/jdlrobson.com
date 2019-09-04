@@ -25,14 +25,16 @@ exports.handler = function (_event, _context, callback) {
 
             // extract from igram
             igramposts.forEach((post) => {
-                let title;
+                let title, caption;
                 const node = post.node;
                 try {
-                    title = node.edge_media_to_caption.edges[0].node.text
+                    caption = node.edge_media_to_caption.edges[0].node.text;
+                    title = caption
                         .match(/([A-Z: \\n]+)/)[0];
                     if ( title.length > 1 ) {
                         feed.item( {
                             title,
+                            description: caption,
                             enclosure: {
                                 url: node.thumbnail_src,
                                 type: 'image/jpeg'
