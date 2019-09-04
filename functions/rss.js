@@ -37,7 +37,7 @@ exports.handler = function (_event, _context, callback) {
                                 url: node.thumbnail_src,
                                 type: 'image/jpeg'
                             },
-                            url: `https://www.instagram.com/p/${post.shortcode}/`,
+                            url: `https://www.instagram.com/p/${node.shortcode}/`,
                             date: new Date( node.taken_at_timestamp * 1000 )
                         });
                     }
