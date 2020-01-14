@@ -66,6 +66,7 @@ const ABOUTME = `<header id="me">
 <p>I'm Jon Robson, a Welsh/English/European/adopted-Singaporean open source web developer and writer living in San Francisco.</p>
 <ul class="icons">
     <li><a class="icon--tweet" href="https://twitter.com/jdlrobson">Twitter</a></li>
+    <li><a href="/.netlify/functions/rss"><img src="/images/rss.png" alt="rss link"></a></li>
 </ul>
 </header>`;
 
@@ -84,7 +85,7 @@ function makePosts() {
         const parts = filename.split('_');
         const title = parts[1].split('-').slice(0, -1).join(' ');
         const path = `posts/${filename}`;
-        const published = new Date(parts[0]).toDateString();
+        const published = new Date(parts[0]);
         buildpage(path, title, html, '/posts.css');
         namedPosts.push( { title, path, published } );
     }
@@ -94,7 +95,8 @@ function makePosts() {
 <section>
 <h3>Blog posts</h3>
 <ul>
-${namedPosts.map((post) => `<li><a href="/${post.path}">${post.title}</a> <div>${post.published}</div></li>`).join('')}
+${namedPosts.sort((p, p2)=>p.published < p2.published ? 1 : -1)
+    .map((post) => `<li><a href="/${post.path}">${post.title}</a> <div>${post.published.toDateString()}</div></li>`).join('')}
 </ul>
 </section>
 </article>
