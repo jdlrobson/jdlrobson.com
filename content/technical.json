@@ -1,0 +1,72 @@
+[
+    {
+      "url": "/posts/2019-12-10_Why-all-software-engineers-should-wear-a-ring-on-their-little-right-finger-31c82403b2eb.html",
+      "title": "Why all software engineers should wear a ring on their little right finger",
+      "description": "engineering rings, December 2019"
+    },
+    {
+      "url": "/posts/2019-05-30_A-hackathon-story-6a4687b1bc73.html",
+      "title": "No people no software",
+      "description": "a hackathon story, May 2019"
+    },
+    {
+      "url": "/posts/2019-03-13_How-we-tackled-technical-debt-at-Wikipedia-d52030065e2c.html",
+      "title": "How we tackled technical debt at Wikipedia",
+      "description": "Talking a bit helped us write off several years of tech debt, March 2019"
+    },
+    {
+      "url": "/posts/2019-02-11_We-re-going-on-a-bug-hunt--we-re-not-scared---b4057e4a91d2.html",
+      "title": "We’re going on a bug hunt (we’re not scared!)",
+      "description": "How we tracked down a JavaScript bug with limited resourcing, February 2019"
+    },
+    {
+      "url": "/posts/2019-01-14_Why-all-developers-should-do-their-chores-feafe33fecfa.html",
+      "title": "Why all developers should do their chores",
+      "description": "How technical debt can become a shared responsibility, January 2019"
+    },
+    {
+      "url": "/posts/2018-11-07_Why-does-Wikipedia-in-2018-have-a-mobile-site-and-a-desktop-site--bc2982f30fb9.html",
+      "title": "Why does Wikipedia in 2018 have a mobile site and a desktop site?",
+      "description": "On why Wikipedia has a mobile site, November 2018"
+    },
+    {
+      "url": "/posts/2018-04-18_Why-it-took-a-long-time-to-build-that-tiny-link-preview-on-Wikipedia-d5bd734df8fe.html",
+      "title": "Why it took a long time to build that tiny link preview on Wikipedia",
+      "description": "#1 article on <a href=\"https://news.ycombinator.com/item?id=16901599\">Hacker News</a> 20th April 2018"
+    },
+    {
+      "url": "/posts/2017-11-13_The-neglected-and-meandering-history-of-printing-websites-cf304824f9b1.html",
+      "title": "The neglected and meandering history of printing websites",
+      "description": "On window.print, November 2018"
+    },
+    {
+        "url": "/posts/2018-04-30_Letting-the-browser-speak---the-Web-Speech-API-1df6048f4816.html",
+        "title": "Letting the browser speak",
+        "description": "Web speech APIs for learning Chinese"
+    },
+    {
+      "url": "/posts/2018-03-14_Failing-at-pushing-a-Wikipedia-trending-API-6ea5a6541fa5.html",
+      "title": "Failing at pushing a Wikipedia trending API",
+      "description": "On failing, March 2018"
+    },
+    {
+      "url": "https://blog.wikimedia.org/2016/09/19/mobile-web-improvements/",
+      "title": "How Wikimedia helped mobile web readers save on data",
+      "description": "Wikimedia blog, Sept 2016 <a href=\"https://www.reddit.com/r/wikipedia/comments/53js5v/wikipedias_mobile_website_now_uses_less_data/?st=itc5osgv&sh=911de4e7\">reddit</a>"
+    },
+    {
+      "url": "https://blog.wikimedia.org/2014/05/02/the-wikipedia-editors-behind-the-curtain/",
+      "title": "The Wikipedia editors behind the curtain",
+      "description": "Wikimedia blog, May 2014"
+    },
+    {
+      "url": "https://blog.wikimedia.org/2013/05/29/wikipedia-nearby-beta/",
+      "title": "Go on a Wikipedia scavenger hunt with Wikipedia Nearby",
+      "description": "Wikimedia blog, May 2013"
+    },
+    {
+      "url": "https://blog.wikimedia.org/2012/03/26/wikipedia-mobile-gets-a-face-lift/",
+      "title": "Wikipedia Mobile gets a face lift",
+      "description": "Wikimedia blog, March 2012"
+    }
+]

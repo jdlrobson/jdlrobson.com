@@ -7,10 +7,20 @@ h1, html, body {
 
 hr {
     background: none;
-    border: solid 5px #ff004b;
+    border: none;
     margin: 20px 80px 50px;
 }
 
+hr::before {
+    content: "... ";
+    color: #ff004b;
+    font-size: 60px;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+article section:first-child,
 .section--first {
     padding-top: 20px;
 }
@@ -95,6 +105,10 @@ figcaption {
     right: 0;
 }
 
+li {
+    margin-bottom: 8px;
+}
+
 section img {
     max-width: 640px;
 }
@@ -173,9 +187,8 @@ nav a {
     text-decoration: none;
     margin-bottom: 8px;
     display: block;
-    transition: color 0.2s ease-in;
+    margin-right: 8px;
 }
-
 
 @media ( min-width: 1000px ) {
     nav {

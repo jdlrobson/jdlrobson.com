@@ -1,8 +1,17 @@
 const fs = require('fs');
-
-const folder = `${__dirname}/posts/`;
-const items = fs.readdirSync(folder);
  
+const slideshow = (items) => {
+    return `<div class="slideshow">
+    <button class="slideshow__button">left</button>
+    <ul class="slideshow__items">${items.map((item, i)=>`<li
+        class="slideshow__item ${i === 0 ? 'slideshow__item--active':''}">
+            <a href="${item.url}">${item.title}</a>
+            <span>${item.description}</span>
+        </li>`)}</ul>
+    <button class="slideshow__button slideshow__button--right">right</button>
+</div>`;
+};
+
 const buildpage = (path, title, html, stylesheetpath = '/index.css') => {
     fs.writeFileSync(`${__dirname}/public/${path}`, `<!DOCTYPE HTML>
 <html lang="en-gb">
@@ -30,17 +39,17 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css') => {
     <meta name="google-site-verification" content="mzjjfIIUZtRWhQwfd49STTtZLoyK0WiGkmMQG83ektw" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75478054-1"></script>
 <body>
-<nav>
-    <a href="/">Jon Robson's personal website</a>
-</nav>
+<script>
+if ( document.querySelectorAll && Array.from !== undefined ) {
+    document.body.className += ' client-js';
+}
+// ie 8 support
+document.createElement('article');
+document.createElement('section');
+document.createElement('nav');
+document.createElement('header');
+</script>
 ${html}
-<header id="me">
-    <img src="/img-home/jdlr.jpg" title="Jon Robson">
-    <p>I'm Jon Robson, a Welsh/English/European/adopted-Singaporean open source web developer and writer living in San Francisco.</p>
-    <ul class="icons">
-        <li><a class="icon--tweet" href="https://twitter.com/jdlrobson">Twitter</a></li>
-    </ul>
-</header>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -52,15 +61,68 @@ gtag('config', 'UA-75478054-1');
 </html>`)
 };
 
-// All blog posts must look like <body>....</body>
-for (var i=0; i<items.length; i++) {
-    const filename = items[i];
-    const blog = fs.readFileSync(`${folder}/${filename}`).toString();
-    const startIndex = blog.indexOf('<body>') + '<body>'.length;
-    const endIndex = blog.indexOf('</body>');
-    const html = blog.substr(startIndex, endIndex - startIndex);
-    const parts = filename.split('_');
-    const title = parts[1].split('-').slice(0, -1).join(' ');
-    const path = `posts/${filename}`;
-    buildpage(path, title, html, '/posts.css');
+const ABOUTME = `<header id="me">
+<a href="/"><img src="/img-home/jdlr.jpg" title="Jon Robson"></a>
+<p>I'm Jon Robson, a Welsh/English/European/adopted-Singaporean open source web developer and writer living in San Francisco.</p>
+<ul class="icons">
+    <li><a class="icon--tweet" href="https://twitter.com/jdlrobson">Twitter</a></li>
+</ul>
+</header>`;
+
+function makePosts() {
+    const postsfolder = `${__dirname}/content/posts/`;
+    const posts = fs.readdirSync(postsfolder);
+    const namedPosts = [];
+    // All blog posts must look like <body>....</body>
+    for (var i=0; i<posts.length; i++) {
+        const filename = posts[i];
+        const blog = fs.readFileSync(`${postsfolder}/${filename}`).toString();
+        const startIndex = blog.indexOf('<body>') + '<body>'.length;
+        const endIndex = blog.indexOf('</body>');
+        const html = `<nav><a href="/posts/">Blog posts</a></nav>`
+            + blog.substr(startIndex, endIndex - startIndex) + ABOUTME;
+        const parts = filename.split('_');
+        const title = parts[1].split('-').slice(0, -1).join(' ');
+        const path = `posts/${filename}`;
+        const published = new Date(parts[0]).toDateString();
+        buildpage(path, title, html, '/posts.css');
+        namedPosts.push( { title, path, published } );
+    }
+    const postindexhtml = `
+<nav><a href="/">Jon Robson</a></nav>
+<article>
+<section>
+<h3>Blog posts</h3>
+<ul>
+${namedPosts.map((post) => `<li><a href="/${post.path}">${post.title}</a> <div>${post.published}</div></li>`).join('')}
+</ul>
+</section>
+</article>
+${ ABOUTME }`;
+    buildpage(`posts/index.html`, `Jon Robson's blog posts`, postindexhtml, '/posts.css');
 }
+
+function makeHome() {
+    const homeheader = fs.readFileSync(`${__dirname}/content/index__header.html`);
+    const homewebsites = fs.readFileSync(`${__dirname}/content/index__websites.html`);
+    const homefooter = fs.readFileSync(`${__dirname}/content/index__footer.html`);
+    const technical = JSON.parse(fs.readFileSync(`${__dirname}/content/technical.json`));
+    const fiction = JSON.parse(fs.readFileSync(`${__dirname}/content/fiction.json`));
+    const html = `
+    <article>
+    ${homeheader}
+    <section id="writes">
+    <h2>Technical writing</h2>
+    ${slideshow(technical)}
+    </section>
+    <section id="writes-fiction">
+    <h2>fiction / non-fiction</h2>
+    ${slideshow(fiction)}
+    </section>
+    ${homewebsites}${homefooter}</article>
+    `;
+    buildpage(`index.html`, `Jon Robson's personal site`, html, '/index.css');
+}
+
+makeHome();
+makePosts();
