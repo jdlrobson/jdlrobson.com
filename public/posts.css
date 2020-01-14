@@ -6,9 +6,25 @@ h1, html, body {
 }
 
 hr {
+    background: none;
+    border: solid 5px #ff004b;
+    margin: 20px 80px 50px;
+}
+
+.section--first {
+    padding-top: 20px;
+}
+.section--first hr {
     display: none;
 }
 
+section a {
+    color: #ff004b;
+}
+
+section a:visited {
+    color: #333;
+}
 h3 {
     padding: 20px 0 0;
     margin: 0;
@@ -30,14 +46,8 @@ body {
 }
 
 article {
-    padding-left: 60px;
     background: white;
-    margin: 0 60px;
-}
-
-section {
-    padding-top: 20px;
-    width: 600px;
+    padding: 0 8px 8px 8px;
 }
 
 a,
@@ -57,10 +67,32 @@ section p:last-child {
 
 figure {
     margin: 0;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 50px;
 }
+
+section img {
+    max-width: 640px;
+    width: 100%;
+  }
+  .aspectRatioPlaceholder {
+    max-width: auto !important;
+    max-height: auto !important;
+  }
+  .aspectRatioPlaceholder-fill {
+    padding-bottom: 0 !important;
+  }
 
 figcaption {
     font-size: 0.8em;
+    background:white;
+    opacity: 0.9;
+    padding: 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 section img {
@@ -68,9 +100,8 @@ section img {
 }
 
 footer {
-    padding: 0 20px;
     margin: 50px 0;
-    text-align: center;
+    text-align: left;
     font-size: 12px;
 }
 
@@ -83,7 +114,6 @@ footer {
     padding-bottom: 0 !important;
 }
 
-footer,
 .p-name,
 section[data-field=subtitle],
 section[data-field=description] {
@@ -92,16 +122,10 @@ section[data-field=description] {
 
 #me {
     font-size: 14px;
-    position: absolute;
-    right: 121px;
-    top: 0;
     text-transform: uppercase;
-    width: 300px;
-    background:
-    #ff004b;
-    color:
-    white;
-    padding-top: 47px;
+    width: 100%;
+    background:#ff004b;
+    color:white;
 }
 
 #me p {
@@ -126,21 +150,53 @@ section[data-field=description] {
     margin-top: 20px;
 }
 
+/* clear the icons list */
+#me:after {
+    content: '';
+    width: 100%;
+    clear: both;
+    display: block;
+}
+
 nav {
     background: yellow;
-    padding: 14px 64px 5px;
-    margin-left: 60px;
     font-weight: bold;
-    margin-right: 60px;
+    padding: 8px;
 }
 
 figcaption, h3,
 nav, h4 {
     text-transform: uppercase;
 }
+
 nav a {
     text-decoration: none;
     margin-bottom: 8px;
     display: block;
     transition: color 0.2s ease-in;
+}
+
+
+@media ( min-width: 1000px ) {
+    nav {
+        background: yellow;
+        padding: 14px 64px 5px;
+        margin: 0 60px;
+    }
+    article {
+        padding-left: 60px;
+        margin: 0 60px;
+    }
+
+    section {
+        padding: 20px 0;
+        width: 600px;
+    }
+    #me {
+        padding-top: 47px;
+        width: 300px;
+        position: absolute;
+        right: 121px;
+        top: 0;
+    }
 }

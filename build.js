@@ -31,7 +31,7 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css') => {
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75478054-1"></script>
 <body>
 <nav>
-    <a href="/">About me</a>
+    <a href="/">Jon Robson's personal website</a>
 </nav>
 ${html}
 <header id="me">
