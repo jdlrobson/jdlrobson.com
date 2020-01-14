@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css?family=Barlow');
+
+h1, html, body {
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    display: none;
+}
+
+h3 {
+    padding: 20px 0 0;
+    margin: 0;
+    font-size: 2em;
+    text-decoration: underline;
+    background: #ff004b;
+    display: inline;
+    padding: 0;
+    line-height: 44px;
+    color: white;
+}
+
+body {
+    font-family: barlow-medium,barlow,sans-serif;
+    margin: 0;
+    position: relative;
+    max-width: 1600px;
+    background: #ff004b url(img-home/bgrepeat.webp) left top repeat;
+}
+
+article {
+    padding-left: 60px;
+    background: white;
+    margin: 0 60px;
+}
+
+section {
+    padding-top: 20px;
+    width: 600px;
+}
+
+a,
+section {
+    color: #333;
+}
+
+section p {
+    margin-bottom: 27px;
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+section p:last-child {
+    margin-bottom: 0;
+}
+
+figure {
+    margin: 0;
+}
+
+figcaption {
+    font-size: 0.8em;
+}
+
+section img {
+    max-width: 640px;
+}
+
+footer {
+    padding: 0 20px;
+    margin: 50px 0;
+    text-align: center;
+    font-size: 12px;
+}
+
+.aspectRatioPlaceholder {
+    max-width: auto !important;
+    max-height: auto !important;
+}
+
+.aspectRatioPlaceholder-fill {
+    padding-bottom: 0 !important;
+}
+
+footer,
+.p-name,
+section[data-field=subtitle],
+section[data-field=description] {
+    display: none;
+}
+
+#me {
+    font-size: 14px;
+    position: absolute;
+    right: 121px;
+    top: 0;
+    text-transform: uppercase;
+    width: 300px;
+    background:
+    #ff004b;
+    color:
+    white;
+    padding-top: 47px;
+}
+
+#me p {
+    text-transform: uppercase;
+    font-size: 1em;
+    padding: 5px 28px;
+    color:
+    #eee;
+    margin: 0;
+    line-height: 18px;
+}
+
+#me img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+}
+
+#me .icons {
+    float: right;
+    margin-top: 20px;
+}
+
+nav {
+    background: yellow;
+    padding: 14px 64px 5px;
+    margin-left: 60px;
+    font-weight: bold;
+    margin-right: 60px;
+}
+
+figcaption, h3,
+nav, h4 {
+    text-transform: uppercase;
+}
+nav a {
+    text-decoration: none;
+    margin-bottom: 8px;
+    display: block;
+    transition: color 0.2s ease-in;
+}
