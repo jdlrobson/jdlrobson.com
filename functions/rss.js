@@ -1,18 +1,33 @@
 const RSS = require('rss');
 const fetch = require('node-fetch');
+const fs = require('fs');
 const xml2js = require('xml2js-es6-promise');
 
-exports.handler = function (_event, _context, callback) {
+const getpath = (url) => {
+    if (url.includes('@dlyall')) {
+        return url.split('medium.com/@dlyall/')[1]
+    } else if (url.includes('/freely-sharing-the-sum-of-all-knowledge/')) {
+        return url.split('/freely-sharing-the-sum-of-all-knowledge/')[1]
+    } else {
+        return url;
+    }
+}
 
+function makerss(uselocal = false) {
+    let localposts = [];
     const feed = new RSS({
         title: 'Jon Robson',
         description: 'Things about Jon'
     });
-    Promise.all(
+    if (uselocal) {
+        localposts = fs.readdirSync(`${__dirname}/../public/posts`)
+            .map((p) => p.toLowerCase().split('_')[1]);
+    }
+    return Promise.all(
         [
             fetch( 'https://medium.com/feed/@dlyall' ).then((response) => response.text())
                 .then((xml) => xml2js(xml)),
-            fetch( 'https://www.instagram.com/jdlrobson/?__a=1' ).then(response=>response.json())
+            fetch( 'https://www.instagram.com/jdlrobson/?__a=1' ).then(response=>response.json(), () => [])
         ]
     )
         .then(([ mediumdata, igdata ] )=> {
@@ -50,20 +65,41 @@ exports.handler = function (_event, _context, callback) {
             // extract from medium
             mediumdata.rss.channel[0].item.forEach((item) => {
                 if ( item.category) {
+                    let url = item.link[0];
+                    // eg. https://medium.com/@dlyall/why-all-software-engineers-should-wear-a-ring-on-their-little-right-finger-31c82403b2eb
+                    let filename = getpath(url);
+                    if (filename && localposts.length) {
+                        filename = filename.split('?')[0];
+                        if (localposts.includes(filename) > -1) {
+                            url = `https://jdlrobson.com/posts/${filename}.html`;
+                        }
+                    }
                     feed.item( {
                         title: item.title[0],
                         description: item.description || item['content:encoded'][0],
-                        url: item.link[0],
+                        url,
                         date: item.pubDate[0]
                     })
                 }
             });
-            callback(null, {
-                headers: {
-                    'content-type': 'text/xml'
-                },
-                statusCode: 200,
-                body: feed.xml({indent: true})
-              })
+            return feed.xml({indent: true});
         });
+}
+
+function handler(_event, _context, callback) {
+    makerss().then((body) => {
+        callback(null, {
+            headers: {
+                'content-type': 'text/xml'
+            },
+            statusCode: 200,
+            body
+          })
+    })
+    
+}
+
+module.exports = {
+    makerss,
+    handler
 }

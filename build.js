@@ -1,5 +1,6 @@
 const fs = require('fs');
- 
+const rss = require('./functions/rss');
+
 const slideshow = (items) => {
     return `<div class="slideshow">
     <button class="slideshow__button">left</button>
@@ -24,7 +25,7 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css') => {
     <link rel="apple-touch-icon" sizes="180x180" href="/img-home/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img-home/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img-home/favicon-16x16.png">
-    <link rel="alternate" type="application/rss+xml" title="Journal RSS" href="/.netlify/functions/rss" />
+    <link rel="alternate" type="application/rss+xml" title="Journal RSS" href="/rss.xml" />
     <link rel="manifest" href="/site.webmanifest">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
@@ -66,7 +67,7 @@ const ABOUTME = `<header id="me">
 <p>I'm Jon Robson, a Welsh/English/European/adopted-Singaporean open source web developer and writer living in San Francisco.</p>
 <ul class="icons">
     <li><a class="icon--tweet" href="https://twitter.com/jdlrobson">Twitter</a></li>
-    <li><a href="/.netlify/functions/rss"><img src="/images/rss.png" alt="rss link"></a></li>
+    <li><a href="/rss.xml"><img src="/images/rss.png" alt="rss link"></a></li>
 </ul>
 </header>`;
 
@@ -128,5 +129,12 @@ function makeHome() {
     buildpage(`index.html`, `Jon Robson's personal site`, html, '/index.css');
 }
 
+function makerss() {
+    rss.makerss(true).then((html) => {
+        fs.writeFileSync(`${__dirname}/public/rss.xml`, html);
+    });
+}
+
 makeHome();
 makePosts();
+makerss();
