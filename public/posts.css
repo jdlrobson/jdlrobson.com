@@ -36,16 +36,27 @@ section a {
 section a:visited {
     color: #333;
 }
-h3 {
-    padding: 20px 0 0;
-    margin: 0;
+
+h1 {
     font-size: 2em;
+    padding: 20px 0 0;
+}
+
+h1, h2 {
+    margin: 0;
     text-decoration: underline;
     background: #ff004b;
     display: inline;
     padding: 0;
     line-height: 44px;
     color: white;
+}
+
+h1 + h2 {
+    display: block;
+    background: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 body {
@@ -179,8 +190,8 @@ nav {
     padding: 8px;
 }
 
-figcaption, h3,
-nav, h4 {
+figcaption, h1,
+nav, h2 {
     text-transform: uppercase;
 }
 
