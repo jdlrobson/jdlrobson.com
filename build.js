@@ -84,7 +84,9 @@ function makePosts() {
             + blog.substr(startIndex, endIndex - startIndex) + ABOUTME;
         const parts = filename.split('_');
         const title = parts[1].split('-').slice(0, -1).join(' ');
-        const path = `posts/${filename}`;
+        // important to rename ' to - to match medium uris
+        const savefilename = filename.replace(/'/g, '-')
+        const path = `posts/${savefilename}`;
         const published = new Date(parts[0]);
         buildpage(path, title, html, '/posts.css');
         namedPosts.push( { title, path, published } );
