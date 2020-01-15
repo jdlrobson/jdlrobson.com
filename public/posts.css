@@ -154,6 +154,16 @@ section[data-field=description] {
     color:white;
 }
 
+#me a:visited,
+#me a {
+    color: white;
+    font-weight: bold;
+}
+
+#me a:visited {
+    opacity: 0.9;
+}
+
 #me p {
     text-transform: uppercase;
     font-size: 1em;
