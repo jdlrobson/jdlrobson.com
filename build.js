@@ -54,7 +54,7 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css', meta) => {
     <title>${title} - By Jon Robson</title>
     <meta name="keywords" content="short stories, writing, web development, javascript" />
     <meta name="Author" content="Jon Robson" />
-    <meta name="viewport" content="width=device-width,minimum-scale=0.5,maximum-scale=1,user-scalable=0,initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=0.5,initial-scale=1.0"/>
     <meta name="google-site-verification" content="mzjjfIIUZtRWhQwfd49STTtZLoyK0WiGkmMQG83ektw" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75478054-1"></script>
 <body>
