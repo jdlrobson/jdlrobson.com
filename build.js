@@ -1,5 +1,18 @@
 const fs = require('fs');
 const rss = require('./functions/rss');
+const domino = require( 'domino' );
+
+const getmeta = (html) => {
+    const doc = domino.createWindow().document;
+    const node = doc.createElement('div');
+    node.innerHTML = html;
+    const img = node.querySelector('img');
+    const description = node.querySelector('p').textContent;
+    return {
+        description,
+        image: img ? img.getAttribute('src') : 'https://jdlrobson.com/gifme-200.gif'
+    };
+};
 
 const slideshow = (items) => {
     return `<div class="slideshow">
@@ -13,14 +26,19 @@ const slideshow = (items) => {
 </div>`;
 };
 
-const buildpage = (path, title, html, stylesheetpath = '/index.css') => {
+
+const buildpage = (path, title, html, stylesheetpath = '/index.css', meta) => {
+    if (!meta) {
+        meta = getmeta(html);
+    }
     fs.writeFileSync(`${__dirname}/public/${path}`, `<!DOCTYPE HTML>
 <html lang="en-gb">
 <head>
     <meta property="og:type" content="profile/>
     <meta property="og:site_name" content="Jon Robson"/>
-    <meta property="og:image" content="https://jdlrobson.com/gifme-200.gif"/>
+    <meta property="og:image" content="${meta.image}"/>
     <meta property="og:title" content="${title}"/> 
+    <meta property="og:description" content="${meta.description}"/> 
     <meta property="og:url" content="https://jdlrobson.com/${path}"/> 
     <link rel="apple-touch-icon" sizes="180x180" href="/img-home/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img-home/favicon-32x32.png">
