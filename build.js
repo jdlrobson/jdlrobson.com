@@ -82,7 +82,7 @@ gtag('config', 'UA-75478054-1');
 
 const ABOUTME = `<header id="me">
 <a href="/"><img src="/img-home/jdlr.jpg" title="Jon Robson"></a>
-<p>I'm Jon Robson, a Welsh/English/European/adopted-Singaporean open source web developer and writer living in San Francisco.</p>
+<p>I'm Jon Robson, a Welsh/English/European/adopted-Singaporean <a href="https://github.com/jdlrobson">open source web developer</a> and <a href="https://littledailydose.com/">published writer</a> living in San Francisco.</p>
 <ul class="icons">
     <li><a class="icon--tweet" href="https://twitter.com/jdlrobson">Twitter</a></li>
     <li><a href="/rss.xml"><img src="/images/rss.png" alt="rss link"></a></li>
