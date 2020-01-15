@@ -1,21 +1,7 @@
 const RSS = require('rss');
 const fetch = require('node-fetch');
-const fs = require('fs');
 const xml2js = require('xml2js-es6-promise');
 
-
-const localposts = fs.readdirSync(`${__dirname}/../public/posts`)
-    .map((p) => p.toLowerCase().split('_')[1]);
-
-const getpath = (url) => {
-    if (url.includes('@dlyall')) {
-        return url.split('medium.com/@dlyall/')[1]
-    } else if (url.includes('/freely-sharing-the-sum-of-all-knowledge/')) {
-        return url.split('/freely-sharing-the-sum-of-all-knowledge/')[1]
-    } else {
-        return url;
-    }
-}
 exports.handler = function (_event, _context, callback) {
 
     const feed = new RSS({
@@ -64,19 +50,10 @@ exports.handler = function (_event, _context, callback) {
             // extract from medium
             mediumdata.rss.channel[0].item.forEach((item) => {
                 if ( item.category) {
-                    let url = item.link[0];
-                    // eg. https://medium.com/@dlyall/why-all-software-engineers-should-wear-a-ring-on-their-little-right-finger-31c82403b2eb
-                    let filename = getpath(url);
-                    if (filename) {
-                        filename = filename.split('?')[0];
-                        if (localposts.includes(filename) > -1) {
-                            url = `https://jdlrobson.com/posts/${filename}.html`;
-                        }
-                    }
                     feed.item( {
                         title: item.title[0],
                         description: item.description || item['content:encoded'][0],
-                        url,
+                        url: item.link[0],
                         date: item.pubDate[0]
                     })
                 }
