@@ -29,7 +29,10 @@ article section:first-child,
     display: none;
 }
 
-h1, h2,
+h1, h2, #me {
+    background: #e80447;
+}
+
 section a {
     color: #e80447;
 }
@@ -150,7 +153,6 @@ section[data-field=description] {
     font-size: 14px;
     text-transform: uppercase;
     width: 100%;
-    background:#da0644;
     color:white;
 }
 
