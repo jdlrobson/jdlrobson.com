@@ -21,7 +21,7 @@ const slideshow = (items) => {
         class="slideshow__item ${i === 0 ? 'slideshow__item--active':''}">
             <a href="${item.url}">${item.title}</a>
             <span>${item.description}</span>
-        </li>`)}</ul>
+        </li>`).join('')}</ul>
     <button class="slideshow__button slideshow__button--right">right</button>
 </div>`;
 };
