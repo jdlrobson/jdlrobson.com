@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "qieqie": "cd DivideAndConcur && npm install && npm run deploy && mv build ../public/qieqie",
-    "start": "node build.js"
+    "qieqie": "cd DivideAndConcur && npm install && npm run build-html && npx parcel build index.html --no-cache  --out-dir build/ --public-url '/qieqie' && mv build ../public/qieqie",
+    "start": "node build.js && npm run qieqie"
   },
   "repository": {
     "type": "git",
