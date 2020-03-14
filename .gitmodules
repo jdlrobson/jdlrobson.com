@@ -1,0 +1,3 @@
+[submodule "DivideAndConcur"]
+	path = DivideAndConcur
+	url = https://github.com/jdlrobson/DivideAndConcur.git
