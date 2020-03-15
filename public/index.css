@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Barlow');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
 
 body {
-    font-family: barlow-medium,barlow,sans-serif;
+    font-family: "Roboto mono",sans-serif;
     margin: 0;
     position: relative;
     background:  #9eb08f;
@@ -21,6 +21,7 @@ nav {
     top: 33px;
     text-align: right;
     text-transform: uppercase;
+    z-index: 2;
 }
 
 nav a {
@@ -78,6 +79,8 @@ header h1 {
 #writes {
     background: #ff004b;
 }
+
+#websites,
 #writes,
 #writes-fiction {
     text-align: center;
@@ -90,6 +93,31 @@ footer,
 
 .slideshow {
     position: relative;
+}
+
+.slideshow--projects {
+    text-align: center;
+    margin: 30px 0 0 auto;
+}
+
+.slideshow--projects li a {
+    align-self: center;
+}
+
+.slideshow--projects li span {
+    align-self: flex-end;
+    margin: auto;
+}
+
+
+.slideshow--projects li span {
+    font-size: 0.9em;
+    margin-top: 0;
+}
+
+.slideshow--projects img {
+    margin: 0 auto;
+    align-self: flex-start;
 }
 
 .slideshow__items {
@@ -158,11 +186,15 @@ footer,
 
 /* websites */
 #websites {
-    background-image: url(img-home/someday.jpg);
-    background-repeat:no-repeat;
-    background-position: top left;
-    background-size: 100% auto;
-    padding: 180px 60px;
+    padding: 8px;
+    background-image: url(/img-home/bench.png);
+}
+
+#websites p {
+    font-size: 0.8em;
+    text-align: right;
+    margin: 0;
+    padding: 8px 0 0;
 }
 
 h2 {
@@ -171,6 +203,7 @@ h2 {
     font-size: 21px;
     text-transform: uppercase;
 }
+
 .listings {
     margin: 0;
     padding: 0 0 0 20px;
@@ -217,6 +250,7 @@ footer {
 }
 
 @media ( min-width: 720px ) {
+
     .icons li {
         margin: 0 16px 0 0;
     }
@@ -247,9 +281,15 @@ footer {
     }
 
     #websites {
-        padding-top: 20px;
-        padding-left: 60%;
-        background-position: -200px 0;
+        padding: 20px;
+        background-image: url(img-home/someday-cut.png);
+        background-repeat:no-repeat;
+        background-size: 100% auto;
+    }
+
+    .slideshow--projects {
+        width: 40%;
+        margin-right: 120px;
     }
 
     @supports (background-size: cover ){
@@ -290,7 +330,5 @@ footer {
 @media ( min-width: 1000px ) {
     .header-box {
         padding: 60px 200px 100px 300px;
-    }
-    #websites {
     }
 }

@@ -1,0 +1,33 @@
+[
+    {
+        "title": "A little daily dose website",
+        "url": "http://littledailydose.com",
+        "description": "A book and mobile app for learning Chinese [2019]"
+    },
+    {
+        "title": "Open Library ",
+        "url": "http://openlibrary.org/",
+        "description": "contributing to Open Library to make it mobile friendly [2018]"
+    },
+    {
+        "title": "qieqie",
+        "url": "/qieqie/",
+        "script": "document.querySelectorAll('#init-game')[0].dispatchEvent(new Event('click'))",
+        "description": "A flashcard game for learning Chinese characters. [2018]"
+    },
+    {
+        "title": "someday",
+        "url": "https://somedayguide.com",
+        "description": "an offline travel guide allowing you to edit open knowledge from the comfort of your offline phone.  [2017]"
+    },
+    {
+        "title": "weekipedia",
+        "url": "https://trending.wmflabs.org",
+        "description": "an offline ready React.js progressive web app clone of the Wikipedia mobile site with webpush. [2016]"
+    },
+    {
+        "title": "m.wikipedia",
+        "url": "https://en.m.wikipedia.org/wiki/Main_Page",
+        "description": "You know Wikipedia, right? I made the mobile version of the site. [2012-present]"
+    }
+]

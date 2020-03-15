@@ -1,6 +1,7 @@
 const fs = require('fs');
 const rss = require('./functions/rss');
 const domino = require( 'domino' );
+const utils = require( './utils' );
 
 const getmeta = (html) => {
     const doc = domino.createWindow().document;
@@ -14,11 +15,12 @@ const getmeta = (html) => {
     };
 };
 
-const slideshow = (items) => {
-    return `<div class="slideshow">
+const slideshow = (items, className, includeImage) => {
+    return `<div class="slideshow ${className}">
     <button class="slideshow__button">left</button>
     <ul class="slideshow__items">${items.map((item, i)=>`<li
         class="slideshow__item ${i === 0 ? 'slideshow__item--active':''}">
+            ${includeImage ? `<img src="/images/${utils.getImageSrcFromUri(item.url)}.png" alt="screenshot of ${item.url}"/>`: ''}
             <a href="${item.url}">${item.title}</a>
             <span>${item.description}</span>
         </li>`).join('')}</ul>
@@ -34,7 +36,7 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css', meta) => {
     fs.writeFileSync(`${__dirname}/public/${path}`, `<!DOCTYPE HTML>
 <html lang="en-gb">
 <head>
-    <meta property="og:type" content="profile/>
+    <meta property="og:type" content="profile"/>
     <meta property="og:site_name" content="Jon Robson"/>
     <meta property="og:image" content="${meta.image}"/>
     <meta property="og:title" content="${title}"/> 
@@ -127,7 +129,7 @@ ${ ABOUTME }`;
 
 function makeHome() {
     const homeheader = fs.readFileSync(`${__dirname}/content/index__header.html`);
-    const homewebsites = fs.readFileSync(`${__dirname}/content/index__websites.html`);
+    const projects = JSON.parse(fs.readFileSync(`${__dirname}/content/projects.json`));
     const homefooter = fs.readFileSync(`${__dirname}/content/index__footer.html`);
     const technical = JSON.parse(fs.readFileSync(`${__dirname}/content/technical.json`));
     const fiction = JSON.parse(fs.readFileSync(`${__dirname}/content/fiction.json`));
@@ -142,7 +144,12 @@ function makeHome() {
     <h2>fiction / non-fiction</h2>
     ${slideshow(fiction)}
     </section>
-    ${homewebsites}${homefooter}</article>
+    <section id="websites">
+    <h2>projects</h2>
+    ${slideshow(projects, 'slideshow--projects', true)}
+    <p>Other clients include <a href="//ilga.org">ilga.org</a>, <a href=""http://tunbridgewellswintershelter.co.uk">tunbridge wells winter shelter</a>, <a href="https://bt.com">BT Group (internal)</a>, <a href="https://notesmusiccoffee.com">notesmusiccoffee</a>.</p>
+    </section>
+    ${homefooter}</article>
     `;
     buildpage(`index.html`, `Jon Robson's personal site`, html, '/index.css');
 }
