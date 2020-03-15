@@ -11,6 +11,7 @@
     },
     {
         "title": "qieqie",
+        "mobile": true,
         "url": "/qieqie/",
         "script": "document.querySelectorAll('#init-game')[0].dispatchEvent(new Event('click'))",
         "description": "A flashcard game for learning Chinese characters. [2018]"
@@ -27,7 +28,9 @@
     },
     {
         "title": "m.wikipedia",
-        "url": "https://en.m.wikipedia.org/wiki/Main_Page",
+        "mobile": true,
+        "path": "/wiki/Oriental_pied_hornbill",
+        "url": "https://en.m.wikipedia.org",
         "description": "You know Wikipedia, right? I made the mobile version of the site. [2012-present]"
     }
 ]
