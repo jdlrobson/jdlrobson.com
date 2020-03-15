@@ -29,7 +29,7 @@
     {
         "title": "m.wikipedia",
         "mobile": true,
-        "path": "/wiki/Oriental_pied_hornbill",
+        "path": "/wiki/Oriental_pied_hornbill?debug=true",
         "url": "https://en.m.wikipedia.org",
         "description": "You know Wikipedia, right? I made the mobile version of the site. [2012-present]"
     }

@@ -21,7 +21,7 @@ projects.forEach((p) => {
     console.log(`Building screenshot for ${url}`);
     (async () => {
         await new Pageres(options)
-            .src(url, [p.mobile ? '375x812' : '1920x1080' ],
+            .src(url, [p.mobile ? '360x640' : '1920x1080' ],
                 {filename, crop: true, script: p.script}
             )
             .dest(DIR)
