@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /posts/2019-02_kintsugi-
