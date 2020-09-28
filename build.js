@@ -11,8 +11,8 @@ const getmeta = (html) => {
     const img = node.querySelector('img');
     const description = node.querySelector('p').textContent;
     const src = img ? img.getAttribute('src') : 'https://jdlrobson.com/gifme-200.gif';
-    if(src.indexOf('http') === -1) {
-        image = `'https://jdlrobson.com/${src}`;
+    if(src.indexOf('https://') === -1) {
+        image = `https://jdlrobson.com/${src}`;
     }
     return {
         description,
