@@ -4,14 +4,19 @@ const domino = require( 'domino' );
 const utils = require( './utils' );
 
 const getmeta = (html) => {
+    let image;
     const doc = domino.createWindow().document;
     const node = doc.createElement('div');
     node.innerHTML = html;
     const img = node.querySelector('img');
     const description = node.querySelector('p').textContent;
+    const src = img ? img.getAttribute('src') : 'https://jdlrobson.com/gifme-200.gif';
+    if(src.indexOf('http') === -1) {
+        image = `'https://jdlrobson.com/${src}`;
+    }
     return {
         description,
-        image: img ?  `'https://jdlrobson.com/${img.getAttribute('src')}` : 'https://jdlrobson.com/gifme-200.gif'
+        image
     };
 };
 
