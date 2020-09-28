@@ -1,5 +1,10 @@
 [
     {
+      "url": "/posts/2020-09-28_Diving-into-Wikipedia-s-ocean-of-errors.html",
+      "title": "Diving into Wikipedia's ocean of errors",
+      "description": "how we went from an error counter to fixing our code"
+    },
+    {
       "url": "/posts/2020-01-14_Wikipedia--The-strange-case-of-the-wandering-semicolon-10073de4ee5.html",
       "title": "Wikipedia: The strange case of the wandering semicolon",
       "description": "the strangest bug I've ever encountered"

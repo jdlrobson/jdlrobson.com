@@ -1,0 +1,281 @@
+<html>
+    <body>
+        <article>
+            <span class="s"></span>
+            <div>
+                <div class="t v qn ej ek el"></div>
+                <section class="em en eo ep eq">
+                    <div class="n p">
+                        <div class="ab ac ae af ag er ai aj">
+                            <h1 id="bf79" class="es et eu ev b ew ex ey ez fa fb fc fd fe ff fg fh fi fj fk fl cr">Diving into Wikipedia’s ocean of errors</h1>
+                            <h2>how we went from an error counter to fixing our code</h2>
+                            <p id="8899" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                A while back
+                                <a href="https://jdlrobson.com/posts/2019-02-11_we-re-going-on-a-bug-hunt--we-re-not-scared---b4057e4a91d2" class="bz do hz ia ib ic" rel="noopener nofollow">
+                                    I wrote about debugging an issue on mobile armed only with an error counter and referrer information
+                                </a>
+                                . Thankfully I’m pleased to report that we are now tracking and fixing client side JavaScript errors for Wikimedia wikis which is providing more error-free experiences to our end users. In this blog post I
+                                wanted to document what led us to prioritizing it; how we went about implementing a solution; and what we learned from the experience. If you are planning to log client errors in your own project, you may
+                                find the summarizing section at the end of the article useful.
+                            </p>
+                            <h2 id="3607" class="id ie eu av if ig ih ii ij ik il im in io ip iq ir is it iu iv cr" data-selectable-paragraph="">Preparing for the voyage</h2>
+                            <p id="1e24" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy em cr" data-selectable-paragraph="">
+                                You may have recently heard about how <a href="https://phabricator.wikimedia.org/T241180" class="bz do hz ia ib ic" rel="noopener nofollow">Wikipedia has made a recommendation to adopt Vue.js</a> or
+                                <a href="https://diff.wikimedia.org/2020/09/23/wikipedia-is-getting-a-new-look-for-the-first-time-in-10-years-heres-why/" class="bz do hz ia ib ic" rel="noopener nofollow">
+                                    how we are redesigning the desktop site
+                                </a>
+                                . As you can imagine migrating an entire front end stack comes with certain challenges. We were diving into a large technical project with no knowledge of the existing landscape in which we were working in.
+                                In fact much of our code hadn’t been touched in some time. In addition to this our mobile error counting had also jumped from 10k a minute to 40k a minute with no obvious cause¹ signally we had introduced a
+                                bug somewhere. It was clear to the developers tasked with this work, that sophisticated error handling was a requirement for this project.
+                            </p>
+                            <figure class="jc jd je jf jg jh dx dy paragraph-image">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Thistlegorm_deck_and_train_parts.jpg/1024px-Thistlegorm_deck_and_train_parts.jpg">
+                                <figcaption class="jw jx dz dx dy jy jz av aw ax ay az" data-selectable-paragraph="">
+                                    We had little idea what we would uncover through our explorations of client side errors [ccbysa,
+                                    <a href="https://commons.wikimedia.org/wiki/File:Thistlegorm_deck_and_train_parts.jpg" class="bz do hz ia ib ic" rel="noopener nofollow">source: wikimedia commons</a>]
+                                </figcaption>
+                            </figure>
+                            <p id="0444" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                Luckily this dovetailed nicely with
+                                <a href="https://www.mediawiki.org/wiki/Wikimedia_Product/Better_use_of_data/Event_Platform_Clients" class="bz do hz ia ib ic" rel="noopener nofollow">the scaling up of our Event Platform</a> client and a
+                                global pandemic where our focus has shifted to site stability. Existing solutions such as <a href="https://ravenjs.com/" class="bz do hz ia ib ic" rel="noopener nofollow">Raven</a> and
+                                <a href="https://sentry.io/welcome/" class="bz do hz ia ib ic" rel="noopener nofollow">Sentry</a> were considered, but given the size of the client libraries comparatively to the rest of the software and out
+                                of a desire to minimize additional tools for developers, a decision was made to roll our own client code and
+                                <a href="https://phabricator.wikimedia.org/T217142" class="bz do hz ia ib ic" rel="noopener nofollow">send unmodified errors and stacktraces to our existing Kafka-Logstash logging infrastructure</a>².
+                            </p>
+                            <p id="7f87" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">We had little idea what we would uncover through our explorations.</p>
+                            <h2 id="a4f7" class="id ie eu av if ig ih ii ij ik il im in io ip iq ir is it iu iv cr" data-selectable-paragraph="">Preparing for launch was just the start</h2>
+                            <p id="cfc5" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy em cr" data-selectable-paragraph="">
+                                Before I even got involved in the work, there was an amazing collaboration between the security, performance, operations, analytics and product infrastructure to get everything in place.
+                                <a href="https://phabricator.wikimedia.org/T241180" class="bz do hz ia ib ic" rel="noopener nofollow">
+                                    This effort is tracked on our public task management system for those that are interested in the details
+                                </a>
+                                .
+                            </p>
+                            <p id="e67d" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                Thanks to the collaboration and planning of these teams, the code for catching errors and sending them to the server ended up
+                                <a href="https://phabricator.wikimedia.org/T235189" class="bz do hz ia ib ic" rel="noopener nofollow">being relatively small</a>. This effort culminated
+                                <a href="https://phabricator.wikimedia.org/T246030" class="bz do hz ia ib ic" rel="noopener nofollow">in the launch on Hawaiian Wikipedia</a>, one of our less often visited wikis. The challenge now became how
+                                to do this at scale.
+                            </p>
+                            <h2 id="5ab4" class="id ie eu av if ig ih ii ij ik il im in io ip iq ir is it iu iv cr" data-selectable-paragraph="">Diving into the unknown</h2>
+                            <p id="5dbc" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy em cr" data-selectable-paragraph="">
+                                We maintain <a href="https://meta.wikimedia.org/wiki/Our_projects" class="bz do hz ia ib ic" rel="noopener nofollow">multiple projects</a> and our biggest Wikipedia alone has 293 languages. Its an
+                                understatement to say that our ecosystem is complex. You’ve likely read about
+                                <a href="https://www.vice.com/en_us/article/4agamm/the-worlds-second-largest-wikipedia-is-written-almost-entirely-by-one-bot" class="bz do hz ia ib ic" rel="noopener nofollow">
+                                    how bots are widely used in Wikipedia
+                                </a>
+                                , but many of our users all rely on bespoke tooling to manage a variety of editing activities which are provided by browser extensions and
+                                <a href="https://www.mediawiki.org/wiki/Extension:Gadgets" class="bz do hz ia ib ic" rel="noopener nofollow">user gadgets</a> (special wiki pages that allow users to write and run their own JavaScript).³
+                            </p>
+                            <p id="fb61" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                To roll out further, we had to ensure that bugs were getting fixed, information we didn’t care about from user gadgets and scripts did not drown the signals we got from more important errors and most
+                                importantly the traffic to the end point was low such that it wouldn’t bring down our services.
+                            </p>
+                            <p id="91f0" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                We started small on a small wiki for the software that runs our sites: <a href="http://mediawiki.org" class="bz do hz ia ib ic" rel="noopener nofollow">MediaWiki.org</a>. From a product perspective, even
+                                though the audience was low, it gave us a hint about what to expect as we rolled out further. The errors logged were a good way to capture very prominent errors e.g. errors occurring on every page view. Many
+                                of these errors had very actionable stack traces meaning we could file bugs and fix them, which we did, however others were more cryptic. “
+                                <a href="https://sentry.io/answers/javascript-script-error/" class="bz do hz ia ib ic" rel="noopener nofollow">Script error</a>.” was one of the most prominent and the most unclear to fix.
+                            </p>
+                            <p id="ee63" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                The reason we were getting “Script error” was due to the fact that code was being loaded from across our websites. Many of our users were loading gadgets from other wikis. So while this could it be explained,
+                                it was not very actionable without a stack trace. However, it did provide the file which caused the error which could be linked to the associated wiki page. Similar
+                                <a href="https://jdlrobson.com/posts/2019-02-11_we-re-going-on-a-bug-hunt--we-re-not-scared---b4057e4a91d2" class="bz do hz ia ib ic" rel="noopener nofollow">
+                                    to my bug hunting adventures in my previous blog post
+                                </a>
+                                , it could be used to manually reproduce those errors in exploratory testing.
+                            </p>
+                            <p id="f745" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                However, the errors we were seeing on <a href="http://mediawiki.org" class="bz do hz ia ib ic" rel="noopener nofollow">MediaWiki.org</a> represented a small drop in a large ocean of errors for our projects.
+                                Despite the rate of errors for these smaller wikis being sufficiently low, we knew that there were more errors out there waiting to be explored, the kind that only come from really stretching the use our
+                                software — for example editing a wiki page with complicated markup or copying and pasting a table with thousands of rows! We needed to roll out to larger wikis to help prioritize bug fixing in our product
+                                work flow by identifying where in our complex code ecosystem our users were commonly hitting problems in our code. But where to begin?
+                            </p>
+                            <p id="67c4" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                We looked at traffic first to guide us. We wanted wikis bigger than our current wikis, but not too big.
+                                <a href="https://jdlrobson.com/posts/2019-02-11_we-re-going-on-a-bug-hunt--we-re-not-scared---b4057e4a91d2" class="bz do hz ia ib ic" rel="noopener nofollow">
+                                    Thanks to the error counter we introduced in our mobile site
+                                </a>
+                                we were able to get guesstimates of the actual error rates on mobile for possible wikis by looking at referrer traffic. Combining this information with the actual error rates being ingested for Hawaiian
+                                Wikipedia and MediaWiki.org for all our traffic and the traffic for all our wikis, we were able to predict the volume of errors for our candidate wikis on desktop too. We choose a wiki which would inform us
+                                more about the errors our users were actually facing without overwhelming our event platform.
+                                <a href="https://phabricator.wikimedia.org/T258073" class="bz do hz ia ib ic" rel="noopener nofollow">We decided to enable on our Catalan language Wikipedia</a>.
+                            </p>
+                            <figure class="jc jd je jf jg jh dx dy paragraph-image">
+                                <img src="https://miro.medium.com/max/1280/1*ck4vKVm2YeLUcSq17KUnmA.png"
+                                    height="500"
+                                        srcset="
+                                            https://miro.medium.com/max/552/1*ck4vKVm2YeLUcSq17KUnmA.png  276w,
+                                            https://miro.medium.com/max/1104/1*ck4vKVm2YeLUcSq17KUnmA.png 552w,
+                                            https://miro.medium.com/max/1280/1*ck4vKVm2YeLUcSq17KUnmA.png 640w,
+                                            https://miro.medium.com/max/1400/1*ck4vKVm2YeLUcSq17KUnmA.png 700w
+                                        "
+                                >
+                                <figcaption class="jw jx dz dx dy jy jz av aw ax ay az" data-selectable-paragraph="">
+                                    A JavaScript error occurs for an end user deep down inside the developer console, hidden away from the user’s view and previously not seen by our engineers[screenshot, own work, cc by sa].
+                                </figcaption>
+                            </figure>
+                            <h2 id="a9d0" class="id ie eu av if ig ih ii ij ik il im in io ip iq ir is it iu iv cr" data-selectable-paragraph="">Lesson one: Not all user errors are equal</h2>
+                            <p id="7888" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy em cr" data-selectable-paragraph="">
+                                Running the client side error tracking on Catalan Wikipedia was really helpful for prioritizing roll out. Due to the larger volume of traffic we went from around 2,000 errors a day to 40,000, however this
+                                taught us a lot. Certain errors we were seeing in the same software on our smaller websites were now occurring more frequently which helped us prioritize them.
+                            </p>
+                            <p id="ca55" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                What became apparent however was certain errors were being repeated by a single IP. We hadn’t been able to notice that with such low traffic. At one point 38,830 of 48,175 errors in a 12 hr period logged to
+                                Catalan Wikipedia came from a single IP address who was running some badly maintained gadgets that they had included almost a decade ago.
+                            </p>
+                            <p id="18db" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                In another interesting development, from the stack traces
+                                <a href="https://phabricator.wikimedia.org/T257872" class="bz do hz ia ib ic" rel="noopener nofollow">we identified a bug related to our map feature which was only occurring on slow connections</a>. When the
+                                bug occurred unfortunately it got executed in an interval timer so appeared in high volumes. A patch was provided and that bug was squashed. It turned out this accounted for 50% of our errors on mobile and
+                                our error counting graph adjusted accordingly.
+                            </p>
+                            <p id="aa0c" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                As for other bugs, many of them came from faulty and forgotten scripts that users were running. After reaching out to those users, we managed to clean those up.
+                            </p>
+                            <figure class="jc jd je jf jg jh dx dy paragraph-image">
+                                <img
+                                alt="Image for post"
+                                class="t u v jm aj"
+                                src="https://miro.medium.com/max/552/1*uLrYxRyKykMtM_Rcs4xAIw.png"
+                                height="300"
+                                srcset="
+                                    https://miro.medium.com/max/552/1*uLrYxRyKykMtM_Rcs4xAIw.png  276w,
+                                    https://miro.medium.com/max/1104/1*uLrYxRyKykMtM_Rcs4xAIw.png 552w,
+                                    https://miro.medium.com/max/1280/1*uLrYxRyKykMtM_Rcs4xAIw.png 640w,
+                                    https://miro.medium.com/max/1400/1*uLrYxRyKykMtM_Rcs4xAIw.png 700w
+                                "
+                                sizes="700px"
+                            />
+                                <figcaption class="jw jx dz dx dy jy jz av aw ax ay az" data-selectable-paragraph="">Over the course of 7 days we went from 30,000 errors per 3hrs to a manageable 735</figcaption>
+                            </figure>
+                            <p id="2c51" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                These two incidents once fixed got the error rate down to a very manageable and respectable rate of 735 errors ever 3hrs. A lesson was learned and
+                                <a href="https://phabricator.wikimedia.org/T259371" class="bz do hz ia ib ic" rel="noopener nofollow">we began to limit the number of bugs we logged from the same user session to five</a>. With that obstacle
+                                out of the way we felt confident to roll out further.
+                            </p>
+                            <h2 id="48b4" class="id ie eu av if ig ih ii ij ik il im in io ip iq ir is it iu iv cr" data-selectable-paragraph="">Lesson Two: Not all page JavaScript is equal</h2>
+                            <p id="9cb0" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy em cr" data-selectable-paragraph="">
+                                With errors limited, the list of errors was much more manageable, however it was clear that many of the stack traces were not useful. In certain cases, the code was clearly coming from places outside of our
+                                control. Interestingly we also saw a lot of bugs from browser extensions and non-Wikimedia domains —
+                                <a href="https://en.wikipedia.org/wiki/Google_Translate" class="bz do hz ia ib ic" rel="noopener nofollow">Google Translate</a> for example and browser extensions like
+                                <a href="https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/" class="bz do hz ia ib ic" rel="noopener nofollow">GreaseMonkey</a> that allow the running of locally written JavaScript. Some of these
+                                errors did not have any information about stack traces or the source of the error. The noise of this unfortunately made it difficult to identify real errors, so we decided to exclude any errors without
+                                information on their origin. <a href="https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest" class="bz do hz ia ib ic" rel="noopener nofollow">If a bug falls and nobody knows what file it came from</a>,
+                                is it really a bug?
+                            </p>
+                            <p id="0145" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                We however decided to defer the filtering of browser extensions and non-wikimedia sites as this could be taken care of using logstash filtering if needed and it was useful to know,
+                                <a href="https://phabricator.wikimedia.org/T259383" class="bz do hz ia ib ic" rel="noopener nofollow">however a bug has been filed about reconsidering that in future</a>, potentially sending them to a
+                                different channel.
+                            </p>
+                            <h2 id="3897" class="id ie eu av if ig ih ii ij ik il im in io ip iq ir is it iu iv cr" data-selectable-paragraph="">Lesson Three: Some errors are the same</h2>
+                            <p id="0f0a" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy em cr" data-selectable-paragraph="">
+                                The end users for the MediaWiki.org and Catalan Wikipedia were not fully representative of all our users so a logic next step was to enable bug tracking on one of our larger language projects written in a
+                                right to left text script. Hebrew was an obvious choice, as the community there had previously volunteered for
+                                <a href="https://wikitech.wikimedia.org/wiki/Heterogeneous_deployment/Train_deploys#Weekly_steps" class="bz do hz ia ib ic" rel="noopener nofollow">earlier deployments</a> to help us catch errors before they
+                                reach production meaning if we saw client errors there we would have time to block the bug before it could impact other projects.
+                            </p>
+                            <p id="755e" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                When we enabled the error tracking on Hebrew Wikipedia, the bump in errors was not as significant as it might have been. We didn’t learn much from this deployment, other than we were getting closer to the
+                                finish line. Sometimes a deployment just gives you the validation you need to continue.
+                            </p>
+                            <p id="1370" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                After this, we expanded coverage further to Wikimedia Commons, our site for uploading images. As we’ve rolled out further we’ve benefited more from our scale,
+                                <a href="https://phabricator.wikimedia.org/T262627" class="bz do hz ia ib ic" rel="noopener nofollow">we noticed problems in our post-processing normalization</a>. Some errors are prefixed with “Uncaught” and
+                                some are not. For example, the error <code class="jq ke kf kg kh b">TypeError: $submitButton.submitOnEnter is not a function</code> is the same as
+                                <code class="jq ke kf kg kh b">Uncaught TypeError: $submitButton.submitOnEnter is not a function</code> . This meant that similar errors were not being grouped.
+                            </p>
+                            <p id="26e2" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                After a month of roll out a significant milestone was reached when our infrastructure surfaced
+                                <a href="https://phabricator.wikimedia.org/T263047" class="bz do hz ia ib ic" rel="noopener nofollow">our first deployment blocker not reported by an end user</a> which was swiftly fixed. Hurray!
+                            </p>
+                            <h2 id="a99b" class="id ie eu av if ig ih ii ij ik il im in io ip iq ir is it iu iv cr" data-selectable-paragraph="">Future voyages</h2>
+                            <p id="ae32" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy em cr" data-selectable-paragraph="">
+                                The majority of the issues that we are now surfacing relate to user gadgets. User gadgets are an historic artifact of the wiki ecosystem that predates browser extensions which have allowed many editors to
+                                self-serve and many of our editors depend on them. Some of these <a href="https://www.mediawiki.org/wiki/Extension:Gadgets#Usage" class="bz do hz ia ib ic" rel="noopener nofollow">user written gadgets</a> are
+                                defaulted to run for all users, including anonymous users, so we have to be careful that as we roll out further we address or communicate with our editors to get those fixes.
+                            </p>
+                            <p id="5e3a" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                <a href="https://phabricator.wikimedia.org/T255585" class="bz do hz ia ib ic" rel="noopener nofollow">We’ll continue this approach with further wikis, but this will take time.</a> At the time of writing we
+                                are seeing about 60,000 errors a day from 10 <a href="https://meta.wikimedia.org/wiki/Special:SiteMatrix" class="bz do hz ia ib ic" rel="noopener nofollow">of the over 2000 sites we maintain</a>.
+                            </p>
+                            <p id="271d" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy em cr" data-selectable-paragraph="">
+                                While hopefully obvious, one thing that’s important is that now we have the ability to identify client side errors that we use this information to fix bugs and to block deployments where necessary. Just
+                                adding the tool is not enough. This requires a lot of socializing the change, which is partly why I am writing this blog post. I have also started attending a weekly triage meeting and including consideration
+                                of these errors in our existing triaging processes. My hope is that all teams working on software for our projects will have a workflow for triaging and addressing such bugs without my assistance.
+                            </p>
+                            <h2 id="f5bc" class="id ie eu av if ig ih ii ij ik il im in io ip iq ir is it iu iv cr" data-selectable-paragraph="">Before you jump in on your own project</h2>
+                            <p id="b7fa" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy em cr" data-selectable-paragraph="">
+                                I’ve linked to the associated tasks for these takeaways so you can see further discussion and implementation details if you are interested in.
+                            </p>
+                            <ul class="">
+                                <li id="068d" class="hg hh eu hi b fn hj hk hl fq hm hn ho hp hq fv hr hs ht fy hu hv hw gb hx hy ki kj kk cr" data-selectable-paragraph="">
+                                    If you are not sure of the amount of errors your site will generate, allow yourself an educated guess
+                                    <a href="https://jdlrobson.com/posts/2019-02-11_we-re-going-on-a-bug-hunt--we-re-not-scared---b4057e4a91d2" class="bz do hz ia ib ic" rel="noopener nofollow">by counting errors first to get an idea.</a>
+                                    You could also use page views to restrict the error ingesting to only certain pages.
+                                </li>
+                                <li id="b74f" class="hg hh eu hi b fn kl hk hl fq km hn ho hp kn fv hr hs ko fy hu hv kp gb hx hy ki kj kk cr" data-selectable-paragraph="">
+                                    Limit the number of errors you track on a single IP. One faulty script from one power user could mislead you and overwhelming your data collection— particular if it’s in run regularly e.g. using
+                                    setInterval or a scroll event handler!
+                                </li>
+                                <li id="fb53" class="hg hh eu hi b fn kl hk hl fq km hn ho hp kn fv hr hs ko fy hu hv kp gb hx hy ki kj kk cr" data-selectable-paragraph="">
+                                    <a href="https://phabricator.wikimedia.org/T259383" class="bz do hz ia ib ic" rel="noopener nofollow">Make sure you only track errors from domains you care about</a> and consider checking the stack trace
+                                    for hints that the script originated from Firefox and Chrome extensions or user scripts while logging or post-processing.
+                                </li>
+                                <li id="a92c" class="hg hh eu hi b fn kl hk hl fq km hn ho hp kn fv hr hs ko fy hu hv kp gb hx hy ki kj kk cr" data-selectable-paragraph="">
+                                    Remember when grouping and filtering errors that some errors may be prefixed with “Uncaught”.
+                                    <a href="https://phabricator.wikimedia.org/T262627" class="bz do hz ia ib ic" rel="noopener nofollow">Normalize your messages</a> before grouping and displaying them in a developer tool.
+                                </li>
+                                <li id="37bf" class="hg hh eu hi b fn kl hk hl fq km hn ho hp kn fv hr hs ko fy hu hv kp gb hx hy ki kj kk cr" data-selectable-paragraph="">
+                                    Some user scripts will have no associated file URI or stack trace. In my opinion, these are not worth caring about
+                                    <a href="https://phabricator.wikimedia.org/T259369" class="bz do hz ia ib ic" rel="noopener nofollow">so avoid logging them</a>.
+                                </li>
+                                <li id="2bfd" class="hg hh eu hi b fn kl hk hl fq km hn ho hp kn fv hr hs ko fy hu hv kp gb hx hy ki kj kk cr" data-selectable-paragraph="">
+                                    If you load code from external domains these will be anonymized with “<a href="https://sentry.io/answers/javascript-script-error/" class="bz do hz ia ib ic" rel="noopener nofollow">Script error</a>”. Try
+                                    to replicate those issues through exploratory testing or if possible run local mirrors. It may even make sense to filter out those errors.
+                                </li>
+                                <li id="85a8" class="hg hh eu hi b fn kl hk hl fq km hn ho hp kn fv hr hs ko fy hu hv kp gb hx hy ki kj kk cr" data-selectable-paragraph="">
+                                    Make sure your engineers have workflows for triaging new errors during and after deployments and ensure fixing and slowing down is part of your workflow.
+                                </li>
+                            </ul>
+                            <h2 id="01cd" class="id ie eu av if ig ih ii ij ik il im in io ip iq ir is it iu iv cr" data-selectable-paragraph="">How volunteers can help</h2>
+                            <ul class="">
+                                <li id="51f5" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy ki kj kk cr" data-selectable-paragraph="">
+                                    If you are a Wikimedia staff member or volunteer and have sufficient permissions you can use
+                                    <a href="https://logstash.wikimedia.org/goto/d9d5e96db698692811f64a7a4ca83860" class="bz do hz ia ib ic" rel="noopener nofollow">our JavaScript dashboard to help identify and fix bugs</a> caused by
+                                    gadgets or your own code.
+                                </li>
+                                <li id="fff0" class="hg hh eu hi b fn kl hk hl fq km hn ho hp kn fv hr hs ko fy hu hv kp gb hx hy ki kj kk cr" data-selectable-paragraph="">
+                                    If you are an editor, you can help make sure errors get the attention they need by doing your part. Please review your
+                                    <a href="https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#Personal_scripts" class="bz do hz ia ib ic" rel="noopener nofollow">user scripts</a> that live on the wikis you frequent. Please blank
+                                    them if you are not using them, use gadgets if you can, and ensure they are not throwing errors on every page you view.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <hr class="kq aw kr ks cm kt jx ku kv kw kx ky" />
+                <section class="em en eo ep eq">
+                    <div class="n p">
+                        <div class="ab ac ae af ag er ai aj">
+                            <h2 id="4e5f" class="kz ie eu av if la lb hk lc ld hn le lf fv lg lh fy li lj gb lk cr" data-selectable-paragraph="">Footnotes</h2>
+                            <p id="74f2" class="hg hh eu hi b fn iw hk hl fq ix hn ho hp iy fv hr hs iz fy hu hv ja gb hx hy em cr" data-selectable-paragraph="">
+                                ¹ for those interested, we eventually diagnosed the increase to relate to a bug in some incorrectly configured code using the
+                                <a href="https://en.wikipedia.org/wiki/Mapbox" class="bz do hz ia ib ic" rel="noopener nofollow">mapbox library</a> which triggered on slow connections leading errors to be thrown inside a setInterval
+                                function in high quantities. The full bug report can be read on
+                                <a href="https://phabricator.wikimedia.org/T257872" class="bz do hz ia ib ic" rel="noopener nofollow">https://phabricator.wikimedia.org/T257872</a><br />
+                                ² The meeting notes can be found on the Wikimedia etherpad for those interested:
+                                <a href="https://etherpad.wikimedia.org/p/clients-error-logging" class="bz do hz ia ib ic" rel="noopener nofollow">https://etherpad.wikimedia.org/p/clients-error-logging</a><br />
+                                ³ An example of a gadget which allows users to place comments <em class="ll">onto</em> images shown on file description pages can be viewed at
+                                <a href="https://commons.wikimedia.org/wiki/Help:Gadget-ImageAnnotator" class="bz do hz ia ib ic" rel="noopener nofollow">https://commons.wikimedia.org/wiki/Help:Gadget-ImageAnnotator</a>. The code lives at
+                                <a href="https://commons.wikimedia.org/wiki/MediaWiki:Gadget-ImageAnnotator.js" class="bz do hz ia ib ic" rel="noopener nofollow">https://commons.wikimedia.org/wiki/MediaWiki:Gadget-ImageAnnotator.js</a>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </body>
+</html>
