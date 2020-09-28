@@ -13,6 +13,8 @@ const getmeta = (html) => {
     const src = img ? img.getAttribute('src') : 'https://jdlrobson.com/gifme-200.gif';
     if(src.indexOf('https://') === -1) {
         image = `https://jdlrobson.com/${src}`;
+    } else {
+        image = src;
     }
     return {
         description,
