@@ -16,7 +16,7 @@
     "node-fetch": "2.6.1",
     "pageres": "5.2.0",
     "rss": "1.2.2",
-    "sharp": "0.25.1",
+    "sharp": "0.30.5",
     "xml2js-es6-promise": "1.1.1"
   }
 }
