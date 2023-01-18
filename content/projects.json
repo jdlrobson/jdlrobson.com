@@ -17,14 +17,14 @@
         "description": "A flashcard game for learning Chinese characters. [2018]"
     },
     {
-        "title": "someday",
-        "url": "https://somedayguide.com",
-        "description": "an offline travel guide allowing you to edit open knowledge from the comfort of your offline phone.  [2017]"
+        "title": "iNatDex",
+        "url": "https://inatdex.netlify.app",
+        "description": "A pokemon-style pokedex for real life nature [2021]"
     },
     {
-        "title": "weekipedia",
-        "url": "https://trending.wmflabs.org",
-        "description": "an offline ready React.js progressive web app clone of the Wikipedia mobile site with webpush. [2016]"
+        "title": "Skins lab",
+        "url": "https://skins.wmflabs.org",
+        "description": "A repository of MediaWiki skins [2021]"
     },
     {
         "title": "m.wikipedia",
