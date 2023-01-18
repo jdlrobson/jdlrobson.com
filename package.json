@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "domino": "2.1.4",
-    "node-fetch": "2.6.1",
+    "node-fetch": "2.6.7",
     "pageres": "5.2.0",
     "rss": "1.2.2",
     "sharp": "0.25.1",
