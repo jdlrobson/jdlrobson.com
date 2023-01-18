@@ -1,5 +1,10 @@
 [
     {
+        "url": "/posts/2023-01-17_The-new-Wikipedia-appearance-that-took-a-whole-village.html",
+        "title": "The new Wikipedia appearance that took a whole village",
+        "description": "All the other things we changed in addition to Wikipedia's look, January 2022"
+    },
+    {
       "url": "/posts/2020-09-28_Diving-into-Wikipedia-s-ocean-of-errors-a6b6be92bf2e.html",
       "title": "Diving into Wikipedia's ocean of errors",
       "description": "how we went from an error counter to fixing our code, September 2020"
