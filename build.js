@@ -86,7 +86,8 @@ gtag('config', 'UA-75478054-1');
 </script>
 <script src="/index.js"></script>
 </body>
-</html>`)
+</html>`);
+console.log(`Built page ${path}`)
 };
 
 const ABOUTME = `<header id="me">
@@ -162,8 +163,11 @@ function makeHome() {
 }
 
 function makerss() {
+    console.log('making RSS');
     rss.makerss(true).then((html) => {
         fs.writeFileSync(`${__dirname}/public/rss.xml`, html);
+    }, () => {
+        console.warn( 'Error generating RSS');
     });
 }
 
