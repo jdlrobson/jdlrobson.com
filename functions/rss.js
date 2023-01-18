@@ -31,7 +31,8 @@ function makerss(uselocal = false) {
                     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
                 }
             } ).then((response) => response.text())
-                .then((xml) => xml2js(xml))
+                .then((xml) => xml2js(xml)),
+            /*fetch( 'https://www.instagram.com/jdlrobson/?__a=1' ).then(response=>response.json(), () => []) */
         ]
     )
         .then(([ mediumdata, igdata ] )=> {
