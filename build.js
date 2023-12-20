@@ -65,7 +65,13 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css', meta) => {
     <meta name="Author" content="Jon Robson" />
     <meta name="viewport" content="width=device-width,minimum-scale=0.5,initial-scale=1.0"/>
     <meta name="google-site-verification" content="mzjjfIIUZtRWhQwfd49STTtZLoyK0WiGkmMQG83ektw" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75478054-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9NEW8YRHD9"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9NEW8YRHD9');
+    </script>
 <body>
 <script>
 if ( document.querySelectorAll && Array.from !== undefined ) {
