@@ -54,6 +54,7 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css', meta) => {
     <link rel="icon" type="image/png" sizes="16x16" href="/img-home/favicon-16x16.png">
     <link rel="alternate" type="application/rss+xml" title="Journal RSS" href="/rss.xml" />
     <link rel="manifest" href="/site.webmanifest">
+    <meta name="google-site-verification" content="mzjjfIIUZtRWhQwfd49STTtZLoyK0WiGkmMQG83ektw">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <link rel="shortcut icon" href="/favicon.ico" />
