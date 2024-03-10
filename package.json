@@ -4,8 +4,7 @@
   "description": "",
   "scripts": {
     "screenshots": "node screen.js",
-    "qieqie": "cd DivideAndConcur && npm install && npm run build-html && npx parcel build index.html --no-cache  --out-dir build/ --public-url '/qieqie' && mv build ../public/qieqie",
-    "start": "node build.js && npm run qieqie",
+    "start": "node build.js",
     "preview": "npm start && http-server public -p 8990"
   },
   "repository": {

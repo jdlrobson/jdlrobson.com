@@ -26,13 +26,6 @@
         "description": "contributing to Open Library to make it mobile friendly [2018]"
     },
     {
-        "title": "qieqie",
-        "mobile": true,
-        "url": "/qieqie/",
-        "script": "document.querySelectorAll('#init-game')[0].dispatchEvent(new Event('click'))",
-        "description": "A flashcard game for learning Chinese characters. [2018]"
-    },
-    {
         "title": "m.wikipedia",
         "mobile": true,
         "path": "/wiki/Oriental_pied_hornbill?debug=true",
