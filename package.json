@@ -5,7 +5,8 @@
   "scripts": {
     "screenshots": "node screen.js",
     "qieqie": "cd DivideAndConcur && npm install && npm run build-html && npx parcel build index.html --no-cache  --out-dir build/ --public-url '/qieqie' && mv build ../public/qieqie",
-    "start": "node build.js && npm run qieqie"
+    "start": "node build.js && npm run qieqie",
+    "preview": "npm start && http-server public -p 8990"
   },
   "repository": {
     "type": "git",
@@ -13,6 +14,7 @@
   },
   "dependencies": {
     "domino": "^2.1.6",
+    "http-server": "^14.1.1",
     "node-fetch": "^2.6.1",
     "rss": "^1.2.2",
     "xml2js-es6-promise": "^1.1.1"
