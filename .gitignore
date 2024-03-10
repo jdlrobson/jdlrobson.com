@@ -1,3 +1,7 @@
+.nvmrc
+node_modules/
 public/posts/
 public/index.html
 public/qieqie
+public/rss.xml
+

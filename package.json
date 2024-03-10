@@ -12,11 +12,9 @@
     "url": "git+https://github.com/jdlrobson/jdlrobson.com.git"
   },
   "dependencies": {
-    "domino": "2.1.4",
-    "node-fetch": "2.6.1",
-    "pageres": "5.2.0",
-    "rss": "1.2.2",
-    "sharp": "0.25.1",
-    "xml2js-es6-promise": "1.1.1"
+    "domino": "^2.1.6",
+    "node-fetch": "^2.6.1",
+    "rss": "^1.2.2",
+    "xml2js-es6-promise": "^1.1.1"
   }
 }
