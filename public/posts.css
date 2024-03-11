@@ -127,7 +127,6 @@ section img {
 figcaption {
     font-size: 0.8em;
     background:white;
-    opacity: 0.9;
     padding: 8px;
     position: absolute;
     bottom: 0;
@@ -244,6 +243,9 @@ pre {
     width: 100%;
     overflow: hidden;
     white-space: pre-wrap;
+    background: white;
+    padding: 8px;
+    border-left: solid 3px #333;
 }
 @media ( min-width: 1000px ) {
     body {
