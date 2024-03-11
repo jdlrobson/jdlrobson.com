@@ -116,10 +116,10 @@ function makePosts() {
         const blog = fs.readFileSync(`${postsfolder}/${filename}`).toString();
         const startIndex = blog.indexOf('<body>') + '<body>'.length;
         const endIndex = blog.indexOf('</body>');
-        const html = `<nav><a href="/posts/">Blog posts</a></nav>`
-            + blog.substr(startIndex, endIndex - startIndex) + ABOUTME;
         const parts = filename.split('_');
         const title = parts[1].split('-').slice(0, -1).join(' ');
+        const html = `<nav><a href="/">Jon Robson</a> &gt; <a href="/posts/">Blog posts</a> &gt; <span>${title}</span></nav>`
+            + blog.substr(startIndex, endIndex - startIndex) + ABOUTME;
         // important to rename ' to - to match medium uris
         const savefilename = filename.replace(/'/g, '-')
         const path = `posts/${savefilename}`;
