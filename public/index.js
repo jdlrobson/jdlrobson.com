@@ -43,3 +43,19 @@ if ( Array.from !== undefined ) {
         initSlideshow(slideshow);
     });
 }
+
+document.body.addEventListener( 'click', ( ev ) => {
+    const target = ev.target;
+    const classList = document.documentElement.classList;
+    if ( target.id === 'enable-dark-mode' ) {
+        classList.remove( 'theme-light' );
+        classList.add( 'theme-dark' );
+        localStorage.setItem( 'darkmode', '1' );
+    } else if ( target.id === 'enable-light-mode' ) {
+        classList.remove( 'theme-dark' );
+        classList.add( 'theme-light' );
+        localStorage.removeItem( 'darkmode' );
+
+    }
+    
+} );

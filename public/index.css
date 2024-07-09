@@ -4,7 +4,7 @@ body {
     font-family: "Roboto mono",sans-serif;
     margin: 0;
     position: relative;
-    background:  #9eb08f;
+    background: var( --background-color );
     max-width: 1600px;
 }
 
@@ -25,7 +25,7 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: var( --color-nav-link );
     text-decoration: none;
     margin-bottom: 8px;
     display: block;
@@ -33,12 +33,12 @@ nav a {
 }
 nav a:active,
 nav a:hover {
-    color: #BADA55;
+    color: var( --color-nav-link-hover );
 }
 
 header,
 section {
-    color: white;
+    color: var( --color-home-text );
 }
 
 .header-box {
@@ -48,7 +48,7 @@ section {
 footer a,
 section a,
 header a {
-    color: white;
+    color: var( --color-link );
 }
 
 header a:hover {
@@ -70,14 +70,14 @@ header h1 {
 }
 
 .header-box__nickname {
-    color: #4e6636;
+    color: var( --color-subtitle );
     font-size: 26px;
 }
 
 /* writes */
 
 #writes {
-    background: #ff004b;
+    background: var( --background-color-carousel );
 }
 
 #websites,
@@ -88,7 +88,7 @@ header h1 {
 
 footer,
 #writes-fiction {
-    background: #9eb08f;
+    background: var( --background-color );
 }
 
 .slideshow {
@@ -151,6 +151,7 @@ footer,
 }
 
 .slideshow__button {
+    color: transparent;
     border: none;
     display: none;
     background: url(img-home/arrow.svg);
@@ -223,7 +224,7 @@ h2 {
 footer {
     font-size: 0.8em;
     padding: 8px;
-    color: white;
+    color: var( --color-home-text );
 }
 
 /* js only */
@@ -236,7 +237,7 @@ footer {
     width: 8px;
     height: 8px;
     border: solid 1px #333;
-    background: white;
+    background: var( --background-color-carousel-coin, white );
     opacity: 0.6;
     border-radius: 5px;
     margin: 0 2px;
@@ -275,7 +276,7 @@ footer {
         display: block;
     }
     body {
-        background:  #9eb08f url(img-home/bgrepeat.webp) left top repeat-y;
+        background:  var( --background-color ) url(img-home/bgrepeat.webp) left top repeat-y;
     }
 
     .client-js .slideshow {

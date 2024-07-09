@@ -41,7 +41,7 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css', meta) => {
         meta = getmeta(html);
     }
     fs.writeFileSync(`${__dirname}/public/${path}`, `<!DOCTYPE HTML>
-<html lang="en-gb">
+<html lang="en-gb" class="theme-light">
 <head>
     <meta property="og:type" content="profile"/>
     <meta property="og:site_name" content="Jon Robson"/>
@@ -58,6 +58,7 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css', meta) => {
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/common.css" />
     <link rel="stylesheet" href="${stylesheetpath}" />
     <link rel="stylesheet" href="/icons.css" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -73,10 +74,20 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css', meta) => {
     gtag('js', new Date());
     gtag('config', 'G-9NEW8YRHD9');
     </script>
+    <script>
+    (function () {
+        const mode = localStorage.getItem('darkmode');
+        const classList = document.documentElement.classList;
+        if ( mode ) {
+            classList.remove( 'theme-light' );
+            classList.add( 'theme-dark' );
+        }
+    }());
+    </script>
 <body>
 <script>
 if ( document.querySelectorAll && Array.from !== undefined ) {
-    document.body.className += ' client-js';
+    document.documentElement.className += ' client-js';
 }
 // ie 8 support
 document.createElement('article');
@@ -92,6 +103,8 @@ gtag('js', new Date());
 gtag('config', 'UA-75478054-1');
 </script>
 <script src="/index.js"></script>
+<button class="darkModeToggle" id="enable-light-mode">☀️</button>
+<button class="darkModeToggle" id="enable-dark-mode">🌙</button>
 </body>
 </html>`);
 console.log(`Built page ${path}`)

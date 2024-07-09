@@ -1,0 +1,61 @@
+:root {
+    --color-base: white;
+    --jon-pink:  #df0144;
+    --color-nav-link: white;
+    --color-nav-link-hover: #BADA55;
+    --color-home-text: white;
+    --color-subtitle: #4e6636;
+    --background-color: #9eb08f;
+    --background-color-fixed: #9eb08f;
+    --background-color-dark-fixed: black;
+    --background-color-carousel: var( --jon-pink );
+    --background-color-carousel-coin: white;
+    --background-color-heading: var( --jon-pink );
+    --color-post-link: #e80447;
+    --color-post-link-visited: #333;
+    --background-post: #f4f269;
+    --background-post-dot: #818176;
+    --background-article: #fefde7;
+    --post-text: #333;
+    --background-figcaption: white;
+    --color-me: white;
+    --color-me-link: white;
+   --color-me-text: white;
+   --background-post-nav-active: #fefde7;
+   --color-post-nav-link: yellow;
+   --background-post-nav-link: black;
+}
+
+html.theme-dark {
+    --background-color-carousel: #6a0120;
+    --background-color: #343c19;
+    --color-subtitle: #6eb12c;
+    --background-post: #9e9d48;
+    --background-article: #68675a;
+    --post-text: white;
+    --jon-pink: #7f092d;
+    --color-post-link: #fddde7;
+    --color-post-link-visited: white;
+    --background-figcaption: black;
+}
+
+.darkModeToggle {
+    display: none;
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+}
+
+.theme-dark.client-js .darkModeToggle#enable-light-mode {
+    display: block;
+    background: var( --background-color-fixed );
+    color: black;
+}
+.theme-light.client-js .darkModeToggle#enable-dark-mode {
+    display: block;
+    background: var( --background-color-dark-fixed );
+    color: white;
+}

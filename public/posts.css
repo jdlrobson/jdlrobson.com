@@ -13,7 +13,7 @@ hr {
 
 hr::before {
     content: "... ";
-    color: #ff004b;
+    color: var( ----background-color-heading );
     font-size: 60px;
     text-align: center;
     width: 100%;
@@ -30,15 +30,15 @@ article section:first-child,
 }
 
 h1, h2, #me {
-    background: #e80447;
+    background: var( --background-color-heading );
 }
 
 section a {
-    color: #e80447;
+    color: var( --color-post-link );
 }
 
 section a:visited {
-    color: #333;
+    color: var( --color-post-link-visited );
 }
 
 h1 {
@@ -66,20 +66,20 @@ body {
     font-family: barlow-medium,barlow,sans-serif;
     margin: 0;
     position: relative;
-    background-color: #f4f269;
-    background-image: radial-gradient(#818176 0.8500000000000001px, #f4f269 0.8500000000000001px);
+    background-color: var( --background-post );
+    background-image: radial-gradient(var( --background-post-dot ) 0.8500000000000001px, var( --background-post ) 0.8500000000000001px);
     background-size: 17px 17px;
 }
 
 article {
-    background: #fefde7;
+    background: var( --background-article );
     padding: 0 8px 40px 8px;
     line-height: 1.6;
 }
 
 a,
 section {
-    color: #333;
+    color: var( --post-text );
 }
 
 section p {
@@ -126,7 +126,7 @@ section img {
 
 figcaption {
     font-size: 0.8em;
-    background:white;
+    background:var( --background-figcaption );
     padding: 8px;
     position: absolute;
     bottom: 0;
@@ -167,12 +167,12 @@ section[data-field=description] {
     font-size: 14px;
     text-transform: uppercase;
     width: 100%;
-    color:white;
+    color:var( --color-me );
 }
 
 #me a:visited,
 #me a {
-    color: white;
+    color: var( --color-me-link );
     font-weight: bold;
 }
 
@@ -184,7 +184,7 @@ section[data-field=description] {
     text-transform: uppercase;
     font-size: 1em;
     padding: 5px 28px;
-    color: white;
+    color: var( --color-me-text );
     margin: 0;
     line-height: 18px;
 }
@@ -225,8 +225,8 @@ nav a {
     text-decoration: none;
     display: inline-block;
     margin-right: 8px;
-    background: black;
-    color: yellow;
+    background: var( --background-post-nav-link );
+    color: var( --color-post-nav-link );
 }
 
 nav > span,
@@ -235,7 +235,7 @@ nav > a {
 }
 
 nav > span {
-    background: #fefde7;
+    background: var( --background-post-nav-active );
     font-size: 12px;
 }
 
