@@ -24,14 +24,14 @@ const getmeta = (html) => {
 
 const slideshow = (items, className, includeImage) => {
     return `<div class="slideshow ${className}">
-    <button class="slideshow__button">left</button>
+    <button class="slideshow__button" aria-hidden="true">left</button>
     <ul class="slideshow__items">${items.map((item, i)=>`<li
         class="slideshow__item ${i === 0 ? 'slideshow__item--active':''}">
             ${includeImage ? `<img src="/images/${utils.getImageSrcFromUri(item.url)}.png" alt="screenshot of ${item.url}"/>`: ''}
             <a href="${item.url}">${item.title}</a>
             <span>${item.description}</span>
         </li>`).join('')}</ul>
-    <button class="slideshow__button slideshow__button--right">right</button>
+    <button class="slideshow__button slideshow__button--right" aria-hidden="true">right</button>
 </div>`;
 };
 
