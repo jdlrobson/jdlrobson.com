@@ -73,6 +73,7 @@ body {
 
 article {
     background: var( --background-article );
+    color: var( --post-text );
     padding: 0 8px 40px 8px;
     line-height: 1.6;
 }
