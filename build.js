@@ -67,23 +67,7 @@ const buildpage = (path, title, html, stylesheetpath = '/index.css', meta) => {
     <meta name="Author" content="Jon Robson" />
     <meta name="viewport" content="width=device-width,minimum-scale=0.5,initial-scale=1.0"/>
     <meta name="google-site-verification" content="mzjjfIIUZtRWhQwfd49STTtZLoyK0WiGkmMQG83ektw" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9NEW8YRHD9"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-9NEW8YRHD9');
-    </script>
-    <script>
-    (function () {
-        const mode = localStorage.getItem('darkmode');
-        const classList = document.documentElement.classList;
-        if ( mode ) {
-            classList.remove( 'theme-light' );
-            classList.add( 'theme-dark' );
-        }
-    }());
-    </script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e5a98d82be534f9e82e9d492f3632e56"}'></script><!-- End Cloudflare Web Analytics -->
 <body>
 <script>
 if ( document.querySelectorAll && Array.from !== undefined ) {
