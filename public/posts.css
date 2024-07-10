@@ -35,6 +35,11 @@ h1, h2, #me {
 
 section a {
     color: var( --color-post-link );
+    text-decoration: none;
+}
+
+section a:hover {
+    text-decoration: underline;
 }
 
 section a:visited {

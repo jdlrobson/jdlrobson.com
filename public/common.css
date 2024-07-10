@@ -12,7 +12,7 @@
     --background-color-carousel-coin: white;
     --background-color-heading: var( --jon-pink );
     --color-post-link: #e80447;
-    --color-post-link-visited: #333;
+    --color-post-link-visited: #9b5555;
     --background-post: #f4f269;
     --background-post-dot: #818176;
     --background-article: #fefde7;
@@ -35,7 +35,7 @@ html.theme-dark {
     --post-text: white;
     --jon-pink: #7f092d;
     --color-post-link: #fddde7;
-    --color-post-link-visited: white;
+    --color-post-link-visited: #eabcbc;
     --border-color-figcaption: #cbcbcb;
 }
 
