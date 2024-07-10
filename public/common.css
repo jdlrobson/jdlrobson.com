@@ -17,7 +17,7 @@
     --background-post-dot: #818176;
     --background-article: #fefde7;
     --post-text: #333;
-    --background-figcaption: white;
+    --border-color-figcaption: #dcdcb2;
     --color-me: white;
     --color-me-link: white;
    --color-me-text: white;
@@ -36,7 +36,7 @@ html.theme-dark {
     --jon-pink: #7f092d;
     --color-post-link: #fddde7;
     --color-post-link-visited: white;
-    --background-figcaption: black;
+    --border-color-figcaption: #cbcbcb;
 }
 
 .darkModeToggle {

@@ -115,7 +115,7 @@ figure {
     margin: 0;
     overflow: hidden;
     position: relative;
-    padding-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 section img {
@@ -131,13 +131,10 @@ section img {
   }
 
 figcaption {
-    font-size: 0.8em;
-    background:var( --background-figcaption );
+    font-size: 0.75em;
+    border-bottom: dotted 3px var( --border-color-figcaption );
     padding: 8px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    margin-top: -8px;
 }
 
 li {
