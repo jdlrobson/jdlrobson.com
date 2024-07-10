@@ -124,7 +124,14 @@ function makePosts() {
         const startIndex = blog.indexOf('<body>') + '<body>'.length;
         const endIndex = blog.indexOf('</body>');
         const parts = filename.split('_');
-        const title = parts[1].split('-').slice(0, -1).join(' ');
+        let name = parts[1];
+        let index = undefined;
+        if ( name.match(/-[0-9a-f]+\.html/ ) ) {
+            index = -1;
+        } else {
+            name = name.replace( '.html', '' );
+        }
+        const title = name.split('-').slice(0, index).join(' ');
         const html = `<nav><a href="/">Jon Robson</a> &gt; <a href="/posts/">Blog posts</a> &gt; <span>${title}</span></nav>`
             + blog.substr(startIndex, endIndex - startIndex) + ABOUTME;
         // important to rename ' to - to match medium uris
