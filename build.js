@@ -166,7 +166,7 @@ function makeHome() {
     ${homeheader}
     <section id="writes">
     <h2>Technical writing</h2>
-    ${slideshow(technical)}
+    ${slideshow(technical.filter((a) => !a.hidden))}
     </section>
     <section id="writes-fiction">
     <h2>fiction / non-fiction</h2>
