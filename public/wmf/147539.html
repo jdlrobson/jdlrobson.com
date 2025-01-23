@@ -1,0 +1,19 @@
+<!DOCTYPE>
+<html>
+<title>Firefox mobile bug https://webcompat.com/issues/147539</title>
+<body>
+<a href="https://webcompat.com/issues/147539">For webcompat bug report</a>
+</body>
+<script>
+(() => {
+  document.body.innerHTML = '<input placeholder="type text" id="search"><div id="results"></div>'; 
+  const s = window.search;
+  s.addEventListener( 'input', function ( ev ) {
+     window.results.innerHTML ='';
+     setTimeout(() => {
+       window.results.innerHTML = `<a href="/wiki/${ev.target.value}">${ev.target.value}</a>`;
+     }, 1000)
+  } );
+})();
+</script>
+</html>
