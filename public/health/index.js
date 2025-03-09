@@ -61,8 +61,9 @@ const refresh = () => {
     <h2>Exercise</h2>
     <progress-bar>${stats.exercise.progress / stats.exercise.target}</progress-bar>
     <strong>${stats.exercise.progress}</strong>/<strong>${stats.exercise.target}</strong>
-    <button data-key="exercise" data-increment="15">+15m</button>
-    <button data-key="exercise" data-increment="30">+30m</button>
+   <button data-key="exercise" data-increment="5">+5m</button>
+  <button data-key="exercise" data-increment="15">+15m</button>
+      <button data-key="exercise" data-increment="30">+30m</button>
     <button data-key="exercise" data-increment="45">+45m</button>
     <button data-key="exercise" data-increment="60">+60m</button>
     <h2>Good foods</h2>
