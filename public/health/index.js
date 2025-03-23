@@ -40,7 +40,7 @@ const statsDefaults = ( s ) => Object.assign( {
     }
 }, s );
 
-const getLogs = (() => {
+const log = (() => {
     try {
         const log = localStorage.getItem(LOG);
         return JSON.parse(log);
