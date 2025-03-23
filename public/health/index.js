@@ -10,7 +10,7 @@ function getLastSunday() {
 const lastSunday = getLastSunday();
 const weekNo = getWeekNumber( lastSunday );
 const SAVE_KEY = `week-stats-${weekNo}`;
-
+const LOG = `week-stats-log`;
 function getWeekNumber(d) {
     // Copy date so don't modify original
     d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
@@ -40,6 +40,15 @@ const statsDefaults = ( s ) => Object.assign( {
     }
 }, s );
 
+const getLogs = (() => {
+    try {
+        const log = localStorage.getItem(LOG);
+        return JSON.parse(log);
+    } catch ( e ) {
+        return statsDefaults( [] ); 
+    }
+})();
+
 const stats = (() => {
     try {
         const stats = localStorage.getItem(SAVE_KEY);
@@ -51,6 +60,7 @@ const stats = (() => {
 
 const save = () => {
     localStorage.setItem(SAVE_KEY, JSON.stringify(stats));
+    localStorage.setItem(LOG, JSON.stringify(log));
     refresh();
 }
 
@@ -82,10 +92,12 @@ const refresh = () => {
     <strong>${stats.badFoods.progress}</strong>/<strong>${stats.badFoods.target}</strong>
     <button data-key="badFoods" data-increment="1">+1</button>
      <ul>
-    <li>trans fats/li>
+    <li>trans fats</li>
     <li>red meat</li>
     <li>fried food</li>
-    </ul>
+    </ul
+    <h2>log</h2>
+    <ul>${log.map((l)=>`<li>${l}</li>`).join('')}</ul>
 `;  
 }
 
@@ -95,6 +107,7 @@ const updateStat = (key, value) => {
     if ( stats[key].progress > target ) {
         stats[key].progress = target;
     }
+    log.push(`Added ${value} to ${key} on ${new Date()}`);
     save();
 }
 
