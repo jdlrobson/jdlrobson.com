@@ -64,6 +64,23 @@ const save = () => {
     refresh();
 }
 
+const previousWeeks = () => {
+    let pastWeek = weekNo - 1;
+    const history = [];
+    const calc = (s) => Math.floor(
+        ( s.progress / s.target ) * 100
+    );
+    while ( pastWeek > weekNo - 3 ) {
+        const previous = localStorage.getItem(SAVE_KEY);
+        if ( previous ) {
+            const stats = JSON.parse(stats);
+            const netFood = stats.goodFoods - stats.badFoods;
+            history.push(`[week ${weekNo}] Exercise: ${calc(stats.exercise)} | Food ${netFood}`);
+        }
+    }
+    return history;
+}
+
 const refresh = () => {
     app.innerHTML = `
     <h1>Progress week ${ weekNo } / 52</h1>
@@ -95,9 +112,11 @@ const refresh = () => {
     <li>trans fats</li>
     <li>red meat</li>
     <li>fried food</li>
-    </ul
+    </ul>
+    <h2>previously</h2>
+    <ul>${previousWeeks.length ? previousWeeks.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
     <h2>log</h2>
-    <ul>${log.map((l)=>`<li>${l}</li>`).join('')}</ul>
+    <ul>${log.length ? log.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
 `;  
 }
 
