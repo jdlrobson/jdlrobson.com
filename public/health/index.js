@@ -60,7 +60,7 @@ const stats = (() => {
 
 const save = () => {
     localStorage.setItem(SAVE_KEY, JSON.stringify(stats));
-    localStorage.setItem(LOG, JSON.stringify(log));
+    localStorage.setItem(LOG, JSON.stringify(log.slice(log.length - 10)));
     refresh();
 }
 
