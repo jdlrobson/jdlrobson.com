@@ -128,11 +128,7 @@ const refresh = () => {
 }
 
 const updateStat = (key, value) => {
-    const target = stats[key].target;
     stats[key].progress += value;
-    if ( stats[key].progress > target ) {
-        stats[key].progress = target;
-    }
     log.push(`Added ${value} to ${key} on ${new Date()}`);
     save();
 }
