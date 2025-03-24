@@ -64,22 +64,29 @@ const save = () => {
     refresh();
 }
 
-const previousWeeks = () => {
-    let pastWeek = weekNo - 1;
+const previousWeeks = (() => {
+    console.log('pr')
+    let pastWeek = weekNo;
     const history = [];
     const calc = (s) => Math.floor(
         ( s.progress / s.target ) * 100
     );
     while ( pastWeek > weekNo - 3 ) {
-        const previous = localStorage.getItem(SAVE_KEY);
+        pastWeek--;
+        const previous = localStorage.getItem(`week-stats-${pastWeek}`);
         if ( previous ) {
-            const stats = JSON.parse(stats);
-            const netFood = stats.goodFoods - stats.badFoods;
-            history.push(`[week ${weekNo}] Exercise: ${calc(stats.exercise)} | Food ${netFood}`);
+            const stats = JSON.parse(previous);
+            const netFood = calc( {
+                progress: stats.goodFoods.progress - stats.badFoods.progress,
+                target: stats.goodFoods.progress + stats.badFoods.progress
+            } );
+            history.push(`[week ${pastWeek}] Exercise: ${calc(stats.exercise)}% | Food ${netFood}%`);
+        } else {
+            history.push(`[week ${pastWeek}] n/a`);
         }
     }
     return history;
-}
+})();
 
 const refresh = () => {
     app.innerHTML = `
@@ -114,9 +121,9 @@ const refresh = () => {
     <li>fried food</li>
     </ul>
     <h2>previously</h2>
-    <ul>${previousWeeks.length ? previousWeeks.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
+    <ul class="listBlock listItalic">${previousWeeks.length ? previousWeeks.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
     <h2>log</h2>
-    <ul>${log.length ? log.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
+    <ul class="listBlock listItalic">${log.length ? log.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
 `;  
 }
 
