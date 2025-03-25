@@ -123,7 +123,7 @@ const refresh = () => {
     <h2>previously</h2>
     <ul class="listBlock listItalic">${previousWeeks.length ? previousWeeks.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
     <h2>log</h2>
-    <ul class="listBlock listItalic">${log.length ? log.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
+    <ul class="listBlock listItalic">${log.length ? log.reverse().map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
 `;  
 }
 
