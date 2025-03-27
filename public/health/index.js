@@ -60,12 +60,11 @@ const stats = (() => {
 
 const save = () => {
     localStorage.setItem(SAVE_KEY, JSON.stringify(stats));
-    localStorage.setItem(LOG, JSON.stringify(log.slice(log.length - 10)));
+    localStorage.setItem(LOG, JSON.stringify(log.slice(0, 10)));
     refresh();
 }
 
 const previousWeeks = (() => {
-    console.log('pr')
     let pastWeek = weekNo;
     const history = [];
     const calc = (s) => Math.floor(
@@ -123,13 +122,13 @@ const refresh = () => {
     <h2>previously</h2>
     <ul class="listBlock listItalic">${previousWeeks.length ? previousWeeks.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
     <h2>log</h2>
-    <ul class="listBlock listItalic">${log.length ? log.reverse().map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
+    <ul class="listBlock listItalic">${log.length ? log.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
 `;  
 }
 
 const updateStat = (key, value) => {
     stats[key].progress += value;
-    log.push(`Added ${value} to ${key} on ${new Date()}`);
+    log.unshift(`Added ${value} to ${key} on ${new Date()}`);
     save();
 }
 
