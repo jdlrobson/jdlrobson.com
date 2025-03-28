@@ -30,6 +30,10 @@ const statsDefaults = ( s ) => Object.assign( {
         target: 60 * 2.5,
         progress: 0
     },
+    mehFoods: {
+        progress: 0,
+        target: 7
+    },
     goodFoods: {
         progress: 0,
         target: 14
@@ -99,26 +103,28 @@ const refresh = () => {
       <button data-key="exercise" data-increment="30">+30m</button>
     <button data-key="exercise" data-increment="45">+45m</button>
     <button data-key="exercise" data-increment="60">+60m</button>
-    <h2>Good foods</h2>
+    <h2>Meals</h2>
     <progress-bar>${ stats.goodFoods.progress / stats.goodFoods.target }</progress-bar>
-    <strong>${stats.goodFoods.progress}</strong>/<strong>${stats.goodFoods.target}</strong>
-    <ul>
-    <li>beans</li>
-    <li>barley</li>
-    <li>fish</li>
-    <li>nuts</li>
-    <li>bananas</li>
-    </ul>
-    <button data-key="goodFoods" data-increment="1">+1</button>
-    <h2>Bad foods</h2>
+    <strong>🙂${stats.goodFoods.progress}</strong>/<strong>${stats.goodFoods.target}</strong>
+    <progress-bar>${ stats.mehFoods.progress / stats.mehFoods.target }</progress-bar>
+    <strong>🤷‍♂️${stats.mehFoods.progress}</strong>/<strong>${stats.mehFoods.target}</strong>
     <progress-bar>${ stats.badFoods.progress / stats.badFoods.target }</progress-bar>
-    <strong>${stats.badFoods.progress}</strong>/<strong>${stats.badFoods.target}</strong>
-    <button data-key="badFoods" data-increment="1">+1</button>
-     <ul>
-    <li>trans fats</li>
-    <li>red meat</li>
-    <li>fried food</li>
-    </ul>
+    <strong>🙂${stats.badFoods.progress}</strong>/<strong>${stats.badFoods.target}</strong>
+    <div>
+    <button data-key="badFoods" data-increment="1">☹️</button>
+    <button data-key="mehFoods" data-increment="1">🤷‍♂️</button>
+    <button data-key="goodFoods" data-increment="1">🙂</button>
+    </div>
+    <h3>Food notes</h3>
+    <table>
+    <tr><th>Good</th><th>Bad</th></tr>
+    <tr>
+    <td>beans</td><td>trans fats</td></tr>
+    <tr><td>barley</li></td><td>red meat</td></tr>
+    <tr><td>fish</li></td><td>fried food</td></tr>
+    <tr><td>nuts</li></td><td></td></tr>
+    <tr><td>bananas</li></td><td></td></tr>
+    </table>
     <h2>previously</h2>
     <ul class="listBlock listItalic">${previousWeeks.length ? previousWeeks.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
     <h2>log</h2>
