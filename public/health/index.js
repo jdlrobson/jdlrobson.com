@@ -79,23 +79,18 @@ const previousWeeks = (() => {
         const previous = localStorage.getItem(`week-stats-${pastWeek}`);
         if ( previous ) {
             const stats = JSON.parse(previous);
-            const netFood = calc( {
-                progress: stats.goodFoods.progress - stats.badFoods.progress,
-                target: stats.goodFoods.progress + stats.badFoods.progress
-            } );
             // X = Y
             // X = 100 / 21 = 5
             // Z = 50 / 21 = 2
             const hasMehFoods = !!stats.mehFoods;
             const mehFoods = hasMehFoods ? stats.mehFoods.progress : 0;
+            const goodFoods = stats.goodFoods.progress;
+            const badFoods = stats.badFoods.progress;
+            const missingMeals = 21 - ( mehFoods + badFoods + goodFoods );
+            const standardMeals = missingMeals + mehFoods;
 
-            const foodScore = ( 5 * stats.goodFoods.progress ) - ( 5 * stats.badFoods.progress ) + ( 2 * mehFoods );
-            let foodStars;
-            if ( !hasMehFoods && foodScore < 50 ) {
-                foodStars = '⭐⭐⭐';
-            } else {
-                foodStars = (new Array( Math.floor( foodScore / 20 ) )).fill(`⭐`).join('');
-            }
+            const foodScore = ( 5 * goodFoods ) - ( 5 * badFoods ) + ( 2 * standardMeals );
+            const foodStars = (new Array( Math.floor( foodScore / 20 ) )).fill(`⭐`).join('');
             history.push(`[week ${pastWeek}] Exercise: ${calc(stats.exercise)}% | Food score ${foodStars}`);
         } else {
             history.push(`[week ${pastWeek}] n/a`);
