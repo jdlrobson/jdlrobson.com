@@ -74,7 +74,7 @@ const previousWeeks = (() => {
     const calc = (s) => Math.floor(
         ( s.progress / s.target ) * 100
     );
-    while ( pastWeek > weekNo - 3 ) {
+    while ( pastWeek > weekNo - 8 ) {
         pastWeek--;
         const previous = localStorage.getItem(`week-stats-${pastWeek}`);
         if ( previous ) {
