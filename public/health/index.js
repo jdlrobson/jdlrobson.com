@@ -30,6 +30,10 @@ const statsDefaults = ( s ) => Object.assign( {
         target: 60 * 2.5,
         progress: 0
     },
+    walking: {
+        target: 120,
+        progress: 0
+    },
     mehFoods: {
         progress: 0,
         target: 7
@@ -79,7 +83,8 @@ const previousWeeks = (() => {
         const previous = localStorage.getItem(`week-stats-${pastWeek}`);
         if ( previous ) {
             const stats = JSON.parse(previous);
-            history.push(`[week ${pastWeek}] Exercise: ${calc(stats.exercise)}%`);
+            const walkScore = stats.exercise ? stats.exercise.progress : 0;
+            history.push(`[week ${pastWeek}] Exercise: ${calc(stats.exercise)}%  Walking: ${walkScore}m }`);
         } else {
             history.push(`[week ${pastWeek}] n/a`);
         }
@@ -101,6 +106,9 @@ const refresh = () => {
     <button data-key="exercise" data-increment="30">+30m</button>
     <button data-key="exercise" data-increment="45">+45m</button>
     <button data-key="exercise" data-increment="60">+60m</button>
+    <h2>Walking</h2>
+    <button data-key="walking" data-increment="15">+15m</button>
+    <button data-key="walking" data-increment="30">+30m</button>
     <h2>previously</h2>
     <ul class="listBlock listItalic">${previousWeeks.length ? previousWeeks.map((l)=>`<li>${l}</li>`).join('') : 'N/A'}</ul>
     <h2>log</h2>
