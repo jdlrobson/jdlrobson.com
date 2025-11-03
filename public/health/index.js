@@ -31,7 +31,7 @@ const statsDefaults = ( s ) => Object.assign( {
         progress: 0
     },
     walking: {
-        target: 120,
+        target: 240,
         progress: 0
     },
     mehFoods: {
@@ -84,7 +84,7 @@ const previousWeeks = (() => {
         if ( previous ) {
             const stats = JSON.parse(previous);
             const walkScore = stats.walking ? stats.walking.progress : 0;
-            history.push(`[week ${pastWeek}] Exercise: ${calc(stats.exercise)}%  Walking: ${walkScore}m }`);
+            history.push(`[week ${pastWeek}] Exercise: ${calc(stats.exercise)}%  Walking: ${walkScore}mins`);
         } else {
             history.push(`[week ${pastWeek}] n/a`);
         }
