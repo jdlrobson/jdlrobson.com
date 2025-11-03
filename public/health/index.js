@@ -83,7 +83,7 @@ const previousWeeks = (() => {
         const previous = localStorage.getItem(`week-stats-${pastWeek}`);
         if ( previous ) {
             const stats = JSON.parse(previous);
-            const walkScore = stats.exercise ? stats.exercise.progress : 0;
+            const walkScore = stats.walking ? stats.walking.progress : 0;
             history.push(`[week ${pastWeek}] Exercise: ${calc(stats.exercise)}%  Walking: ${walkScore}m }`);
         } else {
             history.push(`[week ${pastWeek}] n/a`);
