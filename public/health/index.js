@@ -73,7 +73,10 @@ const save = () => {
     refresh();
 }
 
-const getLastWeekLocalStorageKey = () => {
+const getLastWeekLocalStorageKey = (pastWeek) => {
+    if ( pastWeek < 11 && yearNo === 2026 ) {
+        return `week-stats-${pastWeek}`;
+    }
     return yearNo < 2026 ? `week-stats-${pastWeek}` : `week-stats-${pastWeek}-${yearNo}`;
 }
 
@@ -85,7 +88,7 @@ const previousWeeks = (() => {
     );
     while ( pastWeek > weekNo - 8 ) {
         pastWeek--;
-        const previous = localStorage.getItem(getLastWeekLocalStorageKey());
+        const previous = localStorage.getItem(getLastWeekLocalStorageKey(pastWeek));
         if ( previous ) {
             const stats = JSON.parse(previous);
             const walkScore = stats.walking ? stats.walking.progress : 0;
