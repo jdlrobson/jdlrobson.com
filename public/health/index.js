@@ -9,7 +9,8 @@ function getLastSunday() {
 }
 const lastSunday = getLastSunday();
 const weekNo = getWeekNumber( lastSunday );
-const SAVE_KEY = `week-stats-${weekNo}`;
+const yearNo = (new Date()).getFullYear();
+const SAVE_KEY = yearNo < 2026 ? `week-stats-${weekNo}` : `week-stats-${weekNo}-${yearNo}`;
 const LOG = `week-stats-log`;
 function getWeekNumber(d) {
     // Copy date so don't modify original
@@ -72,6 +73,10 @@ const save = () => {
     refresh();
 }
 
+const getLastWeekLocalStorageKey = () => {
+    return yearNo < 2026 ? `week-stats-${pastWeek}` : `week-stats-${pastWeek}-${yearNo}`;
+}
+
 const previousWeeks = (() => {
     let pastWeek = weekNo;
     const history = [];
@@ -80,7 +85,7 @@ const previousWeeks = (() => {
     );
     while ( pastWeek > weekNo - 8 ) {
         pastWeek--;
-        const previous = localStorage.getItem(`week-stats-${pastWeek}`);
+        const previous = localStorage.getItem(getLastWeekLocalStorageKey());
         if ( previous ) {
             const stats = JSON.parse(previous);
             const walkScore = stats.walking ? stats.walking.progress : 0;
