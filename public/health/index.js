@@ -77,6 +77,9 @@ const calculatePastSevenDays = ( log ) => {
 
 const computedStats = ( stats ) => {
     stats.pace += calculatePastSevenDays( log );
+    if ( stats.pace < stats.exercise.progress ) {
+        stats.pace =stats.exercise.progress;
+    }
     return stats;
 };
 
