@@ -46,7 +46,8 @@ const statsDefaults = ( s ) => Object.assign( {
     badFoods: {
         progress: 0,
         target: 7
-    }
+    },
+    pace: 0
 }, s );
 
 const log = (() => {
@@ -58,10 +59,32 @@ const log = (() => {
     }
 })();
 
+const weekAgo = () => {
+    const d = new Date();
+    d.setDate(d.getDate() - 7);
+    return d;
+};
+
+const calculatePastSevenDays = ( log ) => {
+    return log.map((a) => {
+        const x = a.match(/Added (-?[0-9]*) to exercise on (.*)$/);
+        const mins = parseInt( x[1], 10 );
+        const refDate = weekAgo();
+        const isRecent = new Date(x[2]) > refDate;
+        return isRecent ? mins : 0;
+    } ).reduce( ( prev, current ) => current + prev );
+};
+
+const computedStats = ( stats ) => {
+    stats.pace += calculatePastSevenDays( log );
+    return stats;
+};
+
 const stats = (() => {
     try {
         const stats = localStorage.getItem(SAVE_KEY);
-        return statsDefaults( JSON.parse(stats) );
+        const statsLoaded = statsDefaults( JSON.parse(stats) );
+        return computedStats( statsLoaded );
     } catch ( e ) {
         return statsDefaults( {} ); 
     }
@@ -106,6 +129,9 @@ const refresh = () => {
     <p>Week for ${ lastSunday.getDate() } / ${ lastSunday.getMonth() + 1 } / ${ lastSunday.getFullYear() }
     <h2>Exercise</h2>
     <progress-bar>${stats.exercise.progress / stats.exercise.target}</progress-bar>
+    <div>
+        <p>Pace: ${stats.pace} minutes in last 7 days</p>
+    </div>
     <strong>${stats.exercise.progress}</strong>/<strong>${stats.exercise.target}</strong>
     <button data-key="exercise" data-increment="5">+5m</button>
     <button data-key="exercise" data-increment="10">+10m</button>
