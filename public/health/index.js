@@ -134,7 +134,7 @@ const refresh = () => {
     <h2>Exercise</h2>
     <progress-bar>${stats.exercise.progress / stats.exercise.target}</progress-bar>
     <div>
-        <p>Pace: ${stats.pace} minutes in last 7 days</p>
+        <p>Pace: ${stats.pace} minutes (of 150) in last 7 days</p>
     </div>
     <strong>${stats.exercise.progress}</strong>/<strong>${stats.exercise.target}</strong>
     <button data-key="exercise" data-increment="5">+5m</button>
