@@ -158,6 +158,7 @@ const refresh = () => {
 
 const updateStat = (key, value) => {
     stats[key].progress += value;
+    stats.pace += value;
     log.unshift(`Added ${value} to ${key} on ${new Date()}`);
     save();
 }
