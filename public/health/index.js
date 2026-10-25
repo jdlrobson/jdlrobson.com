@@ -62,21 +62,22 @@ const log = (() => {
 const weekAgo = () => {
     const d = new Date();
     d.setDate(d.getDate() - 7);
+    d.setHours(0, 0, 0, 0);
     return d;
 };
 
 const calculatePastSevenDays = ( log ) => {
+    const refDate = weekAgo();
     return log.map((a) => {
         const x = a.match(/Added (-?[0-9]*) to exercise on (.*)$/);
         const mins = parseInt( x[1], 10 );
-        const refDate = weekAgo();
         const isRecent = new Date(x[2]) > refDate;
         return isRecent ? mins : 0;
-    } ).reduce( ( prev, current ) => current + prev );
+    } ).reduce( ( prev, current ) => current + prev, 0 );
 };
 
 const computedStats = ( stats ) => {
-    stats.pace += calculatePastSevenDays( log );
+    stats.pace = calculatePastSevenDays( log );
     if ( stats.pace < stats.exercise.progress ) {
         stats.pace =stats.exercise.progress;
     }
